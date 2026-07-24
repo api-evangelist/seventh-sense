@@ -1,0 +1,891 @@
+openapi: 3.1.0
+info:
+  title: OpenCV Face Recognition Collections Persons API
+  description: '
+
+    OpenCV Face Recognition allows you to either **manually** (through our [Developer Portal](https://developer.opencv.fr) UI) or **programmatically** (through our SDKs or REST API) detect, recognize, and verify faces in images. It is based on state-of-the-art (SOTA) algorithms and uses deep learning face recognition models. The API is designed to be easy to use and integrate into your applications. It is available as this hosted service or you can deploy it yourself on your own servers.
+
+
+    There are four ways that you can use the product:
+
+    - Using the [Face Recognition Developer Portal](https://developer.opencv.fr) User Interface to manage your **Developer** teams, **Persons** who are registered for the search API to recognize, and **Collections** - groups of persons.
+
+    - Using the [Python Face Recognition SDK](https://docs.opencv.fr/python) to integrate the API into your Python applications.
+
+    - Using the [C++ Face Recognition SDK](https://docs.opencv.fr/cpp) to integrate the API into your C++ applications.
+
+    - Using the REST API (below) to integrate the API functionality into your applications in other languages.
+
+
+    To use the REST API described below, you will need to create an account and obtain an API key. You can do this by signing up for a free account at [Face Recognition Developer Portal](https://developer.opencv.fr).
+
+
+    Once you have signed up, you will see an **API Developer Key** in the Dashboard. This is the key that you will use to authenticate your requests to the API. You can also create additional Developers (each with their own key) for your applications.
+
+
+    To use the API, you will need to send the API key in the `X-API-Key` header of each request. For example, using `curl`:
+
+    ```
+
+    curl -X GET "https://<region>.opencv.fr/persons" -H "accept: application/json" -H "X-API-Key: <your API key>"
+
+    ```
+
+
+    `<region>` is the data storage region that you selected when you created your account. It can be `us`, `eu`, or `sg`.
+
+
+    To help you try out the functionality quickly, the below live docs include a **Try it out** button for each endpoint. This will allow you to send a request to the API and see the response. Before you can use this, you will need to grab your API key from the Dashboard and enter it into the field that shows up when you click the green **Authorize** button (below this line on the right).
+
+    '
+  version: 2026.07.15.0759
+tags:
+- name: Persons
+  description: Persons are registered persons that you can later search for using face images. Registering a person allows you to search for them later using the `/search` endpoint. You can also use the `/person` endpoint(s) to update the registered person's name and/or add additional images to the registered person. Registering a person stores thumbnail face images and information on our servers. You can delete a registered person using the `DELETE /person/{person_id}` endpoint.
+paths:
+  /person/{person_id}:
+    get:
+      tags:
+      - Persons
+      summary: Get Person
+      operationId: get_person_person__person_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: person_id
+        in: path
+        required: true
+        schema:
+          title: Person Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Persons
+      summary: Delete Person
+      operationId: delete_person_person__person_id__delete
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: person_id
+        in: path
+        required: true
+        schema:
+          title: Person Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletedItemSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /persons:
+    patch:
+      tags:
+      - Persons
+      summary: Modify Persons
+      operationId: modify_persons_persons_patch
+      security:
+      - APIKeyHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeletePersonsSchema'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DeletedItemSchema'
+                title: Response Modify Persons Persons Patch
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Persons
+      summary: Get Persons
+      operationId: get_persons_persons_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Skip
+      - name: take
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 0
+          default: 20
+          title: Take
+      - name: order
+        in: query
+        required: false
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/OrderEnum'
+          default: ASC
+          title: Order
+      - name: order_by
+        in: query
+        required: false
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/PersonsOrderByEnum'
+          default: name
+          title: Order By
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+          title: Search
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPersonsSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /person:
+    post:
+      tags:
+      - Persons
+      summary: Create Person
+      operationId: create_person_person_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePersonSchema'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+    patch:
+      tags:
+      - Persons
+      summary: Update Person
+      operationId: update_person_person_patch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePersonSchema'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+  /person/crops:
+    post:
+      tags:
+      - Persons
+      summary: Create Person From Crops Obtained Using Detect End Point
+      operationId: create_person_from_crops_obtained_using_detect_end_point_person_crops_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePersonSchema'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+  /person/images:
+    post:
+      tags:
+      - Persons
+      summary: Add Thumbnails From Images
+      operationId: add_thumbnails_from_images_person_images_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateImagesSchema'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CreateImageResponseSchema'
+                type: array
+                title: Response Add Thumbnails From Images Person Images Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+    patch:
+      tags:
+      - Persons
+      summary: Update Person And Add New Images While Removing Old Ones
+      operationId: update_person_and_add_new_images_while_removing_old_ones_person_images_patch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePersonAndImagesSchema'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+  /person/image/{person_id}/{thumbnail_id}:
+    delete:
+      tags:
+      - Persons
+      summary: Delete An Existing Thumbnail
+      operationId: delete_an_existing_thumbnail_person_image__person_id___thumbnail_id__delete
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: person_id
+        in: path
+        required: true
+        schema:
+          title: Person Id
+      - name: thumbnail_id
+        in: path
+        required: true
+        schema:
+          title: Thumbnail Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletedItemSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /persons/{collection_id}:
+    get:
+      tags:
+      - Persons
+      summary: Get Persons In Collection
+      operationId: get_persons_in_collection_persons__collection_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: collection_id
+        in: path
+        required: true
+        schema:
+          title: Collection Id
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Skip
+      - name: take
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 0
+          default: 20
+          title: Take
+      - name: order
+        in: query
+        required: false
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/OrderEnum'
+          default: ASC
+          title: Order
+      - name: order_by
+        in: query
+        required: false
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/PersonsOrderByEnum'
+          default: name
+          title: Order By
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+          title: Search
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPersonsSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    PersonSchema:
+      properties:
+        id:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Id
+        name:
+          anyOf:
+          - type: string
+            maxLength: 100
+            minLength: 1
+          - type: 'null'
+          title: Name
+        thumbnails:
+          items:
+            $ref: '#/components/schemas/ThumbnailSchema'
+          type: array
+          title: Thumbnails
+        gender:
+          anyOf:
+          - $ref: '#/components/schemas/GenderEnum'
+          - type: 'null'
+        date_of_birth:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Date Of Birth
+        nationality:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Nationality
+        collections:
+          items:
+            $ref: '#/components/schemas/CollectionSchema'
+          type: array
+          title: Collections
+        notes:
+          anyOf:
+          - type: string
+            maxLength: 500
+            minLength: 0
+          - type: 'null'
+          title: Notes
+        create_date:
+          type: string
+          format: date-time
+          title: Create Date
+        modified_date:
+          type: string
+          format: date-time
+          title: Modified Date
+      type: object
+      required:
+      - id
+      - collections
+      - create_date
+      - modified_date
+      title: PersonSchema
+    ActionEnum:
+      type: string
+      const: DELETE
+      title: ActionEnum
+    ListPersonsSchema:
+      properties:
+        count:
+          type: integer
+          title: Count
+        persons:
+          items:
+            $ref: '#/components/schemas/PersonSchema'
+          type: array
+          title: Persons
+      type: object
+      required:
+      - count
+      - persons
+      title: ListPersonsSchema
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CreatePersonSchema:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            maxLength: 100
+            minLength: 1
+          - type: 'null'
+          title: Id
+        name:
+          anyOf:
+          - type: string
+            maxLength: 100
+            minLength: 1
+          - type: 'null'
+          title: Name
+        images:
+          items:
+            type: string
+          type: array
+          maxItems: 3
+          minItems: 1
+          title: Images
+        gender:
+          anyOf:
+          - $ref: '#/components/schemas/GenderEnum'
+          - type: 'null'
+        date_of_birth:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Date Of Birth
+        nationality:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Nationality
+        collections:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Collections
+        notes:
+          anyOf:
+          - type: string
+            maxLength: 500
+            minLength: 0
+          - type: 'null'
+          title: Notes
+        is_bulk_insert:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Bulk Insert
+          default: false
+      type: object
+      required:
+      - images
+      title: CreatePersonSchema
+      example:
+        collections:
+        - string
+        date_of_birth: '2026-07-21'
+        gender: M
+        id: string
+        images:
+        - base64_encoded_string
+        is_bulk_insert: false
+        name: string
+        nationality: string
+        notes: string
+    CreateImagesSchema:
+      properties:
+        person_id:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Person Id
+        images:
+          items:
+            type: string
+          type: array
+          maxItems: 3
+          minItems: 1
+          title: Images
+      type: object
+      required:
+      - person_id
+      - images
+      title: CreateImagesSchema
+      example:
+        images:
+        - base64_encoded_string
+        person_id: string
+    CollectionSchema:
+      properties:
+        id:
+          type: string
+          maxLength: 36
+          minLength: 36
+          title: Id
+        name:
+          type: string
+          maxLength: 50
+          minLength: 1
+          title: Name
+        description:
+          anyOf:
+          - type: string
+            maxLength: 100
+            minLength: 0
+          - type: 'null'
+          title: Description
+        count:
+          type: integer
+          title: Count
+        create_date:
+          type: string
+          format: date-time
+          title: Create Date
+        modified_date:
+          type: string
+          format: date-time
+          title: Modified Date
+      type: object
+      required:
+      - id
+      - name
+      - count
+      - create_date
+      - modified_date
+      title: CollectionSchema
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ThumbnailSchema:
+      properties:
+        id:
+          type: string
+          title: Id
+        thumbnail:
+          type: string
+          title: Thumbnail
+      type: object
+      required:
+      - id
+      title: ThumbnailSchema
+    DeletedItemSchema:
+      properties:
+        id:
+          type: string
+          title: Id
+      type: object
+      title: DeletedItemSchema
+    UpdatePersonSchema:
+      properties:
+        id:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Id
+        name:
+          anyOf:
+          - type: string
+            maxLength: 100
+            minLength: 1
+          - type: 'null'
+          title: Name
+        images:
+          anyOf:
+          - items:
+              type: string
+            type: array
+            maxItems: 3
+            minItems: 1
+          - type: 'null'
+          title: Images
+        gender:
+          anyOf:
+          - $ref: '#/components/schemas/GenderEnum'
+          - type: 'null'
+        date_of_birth:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Date Of Birth
+        nationality:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Nationality
+        collections:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Collections
+        notes:
+          anyOf:
+          - type: string
+            maxLength: 500
+            minLength: 0
+          - type: 'null'
+          title: Notes
+      type: object
+      required:
+      - id
+      title: UpdatePersonSchema
+      example:
+        collections:
+        - string
+        date_of_birth: '2026-07-21'
+        gender: M
+        id: string
+        images:
+        - base64_encoded_string
+        name: string
+        nationality: string
+        notes: string
+    OrderEnum:
+      type: string
+      enum:
+      - ASC
+      - DESC
+      title: OrderEnum
+    CreateImageResponseSchema:
+      properties:
+        id:
+          type: string
+          title: Id
+        person_id:
+          type: string
+          title: Person Id
+        thumbnail:
+          type: string
+          title: Thumbnail
+      type: object
+      required:
+      - id
+      - person_id
+      - thumbnail
+      title: CreateImageResponseSchema
+    PersonsOrderByEnum:
+      type: string
+      enum:
+      - name
+      - date_of_birth
+      - gender
+      - nationality
+      - modified_date
+      - create_date
+      title: PersonsOrderByEnum
+    UpdatePersonAndImagesSchema:
+      properties:
+        id:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Id
+        name:
+          anyOf:
+          - type: string
+            maxLength: 100
+            minLength: 1
+          - type: 'null'
+          title: Name
+        new_images:
+          anyOf:
+          - items:
+              type: string
+            type: array
+            maxItems: 3
+            minItems: 1
+          - type: 'null'
+          title: New Images
+        removed_thumbnail_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+            minItems: 1
+          - type: 'null'
+          title: Removed Thumbnail Ids
+        gender:
+          anyOf:
+          - $ref: '#/components/schemas/GenderEnum'
+          - type: 'null'
+        date_of_birth:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Date Of Birth
+        nationality:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Nationality
+        collections:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Collections
+        notes:
+          anyOf:
+          - type: string
+            maxLength: 500
+            minLength: 0
+          - type: 'null'
+          title: Notes
+      type: object
+      required:
+      - id
+      title: UpdatePersonAndImagesSchema
+      example:
+        collections:
+        - string
+        date_of_birth: '2026-07-21'
+        gender: M
+        id: string
+        name: string
+        nationality: string
+        new_images:
+        - base64_encoded_string
+        notes: string
+        removed_thumbnail_ids:
+        - string
+    DeletePersonsSchema:
+      properties:
+        action:
+          $ref: '#/components/schemas/ActionEnum'
+        person_ids:
+          items:
+            type: string
+          type: array
+          minItems: 1
+          title: Person Ids
+      type: object
+      required:
+      - action
+      - person_ids
+      title: DeletePersonsSchema
+    GenderEnum:
+      type: string
+      enum:
+      - M
+      - F
+      title: GenderEnum
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      in: header
+      name: x-api-key

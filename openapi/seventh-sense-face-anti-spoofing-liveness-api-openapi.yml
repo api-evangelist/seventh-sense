@@ -1,0 +1,142 @@
+openapi: 3.1.0
+info:
+  title: OpenCV Face Recognition Collections Face Anti-Spoofing / Liveness API
+  description: '
+
+    OpenCV Face Recognition allows you to either **manually** (through our [Developer Portal](https://developer.opencv.fr) UI) or **programmatically** (through our SDKs or REST API) detect, recognize, and verify faces in images. It is based on state-of-the-art (SOTA) algorithms and uses deep learning face recognition models. The API is designed to be easy to use and integrate into your applications. It is available as this hosted service or you can deploy it yourself on your own servers.
+
+
+    There are four ways that you can use the product:
+
+    - Using the [Face Recognition Developer Portal](https://developer.opencv.fr) User Interface to manage your **Developer** teams, **Persons** who are registered for the search API to recognize, and **Collections** - groups of persons.
+
+    - Using the [Python Face Recognition SDK](https://docs.opencv.fr/python) to integrate the API into your Python applications.
+
+    - Using the [C++ Face Recognition SDK](https://docs.opencv.fr/cpp) to integrate the API into your C++ applications.
+
+    - Using the REST API (below) to integrate the API functionality into your applications in other languages.
+
+
+    To use the REST API described below, you will need to create an account and obtain an API key. You can do this by signing up for a free account at [Face Recognition Developer Portal](https://developer.opencv.fr).
+
+
+    Once you have signed up, you will see an **API Developer Key** in the Dashboard. This is the key that you will use to authenticate your requests to the API. You can also create additional Developers (each with their own key) for your applications.
+
+
+    To use the API, you will need to send the API key in the `X-API-Key` header of each request. For example, using `curl`:
+
+    ```
+
+    curl -X GET "https://<region>.opencv.fr/persons" -H "accept: application/json" -H "X-API-Key: <your API key>"
+
+    ```
+
+
+    `<region>` is the data storage region that you selected when you created your account. It can be `us`, `eu`, or `sg`.
+
+
+    To help you try out the functionality quickly, the below live docs include a **Try it out** button for each endpoint. This will allow you to send a request to the API and see the response. Before you can use this, you will need to grab your API key from the Dashboard and enter it into the field that shows up when you click the green **Authorize** button (below this line on the right).
+
+    '
+  version: 2026.07.15.0759
+tags:
+- name: Face Anti-Spoofing / Liveness
+  description: The `/liveness` endpoint allows you to determine if a face image is of a real person or a spoofed image (eg. a printed image of a face, or an image captured from a tablet's screen). The endpoint returns a score between 0 and 1, where 1 is a real person and 0 is a spoofed image, the threshold for the image to be considered live is >= 0.5.<br/><br/> Our liveness achieved Attack Presentation Classification Error Rate (APCER) of 0% and reached iBeta Level 2 compliance in accordance with ISO 30107-3. <br/><br/>**Note:** The `/liveness` endpoint does not store any information on our servers. It is a one-time classification of an image using a deep learning model. If you want to store the images and search for them later, use the `/person` endpoint to register persons for a later search using the `/search` endpoint.<br/><br/>To ensure fraudsters cannot use high-resolution print outs, masks or video playbacks to spoof face recognition systems, liveness image has a higher requirement on image:<br/><br/>Liveness image requirement:<br/> <ul> <li>There should only be one main face on the image. It should be fully visible within a frame and fully open without any occlusions. No crop is allowed. Small faces in the background are not taken into account.</li> <li>The minimum size of a face box that can be processed is 224x224 pixels.</li> <li>The padding between the face box and the image's borders should be at least 25 pixels.</li> <li>The distance between the pupils on the face should be at least 80 pixels.</li> <li>The out-of-plane rotation angle (face pitch and yaw) should be no more than ±30 degrees.</li> <li>Fish-eye lenses and sunglass images are not supported.</li> </ul>
+paths:
+  /liveness:
+    post:
+      tags:
+      - Face Anti-Spoofing / Liveness
+      summary: Check Liveness For A Single Image
+      operationId: check_liveness_for_a_single_image_liveness_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LivenessSchema'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LivenessResultSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    LivenessResultSchema:
+      properties:
+        liveness_score:
+          type: number
+          title: Liveness Score
+      type: object
+      required:
+      - liveness_score
+      title: LivenessResultSchema
+    LivenessSchema:
+      properties:
+        os:
+          anyOf:
+          - $ref: '#/components/schemas/OSEnum'
+          - type: 'null'
+          default: DESKTOP
+        image:
+          type: string
+          title: Image
+      type: object
+      required:
+      - image
+      title: LivenessSchema
+      example:
+        image: base64_encoded_string
+        os: DESKTOP
+    OSEnum:
+      type: string
+      enum:
+      - DESKTOP
+      - ANDROID
+      - IOS
+      title: OSEnum
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      in: header
+      name: x-api-key

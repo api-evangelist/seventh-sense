@@ -1,0 +1,566 @@
+openapi: 3.1.0
+info:
+  title: OpenCV Face Recognition Collections API
+  description: '
+
+    OpenCV Face Recognition allows you to either **manually** (through our [Developer Portal](https://developer.opencv.fr) UI) or **programmatically** (through our SDKs or REST API) detect, recognize, and verify faces in images. It is based on state-of-the-art (SOTA) algorithms and uses deep learning face recognition models. The API is designed to be easy to use and integrate into your applications. It is available as this hosted service or you can deploy it yourself on your own servers.
+
+
+    There are four ways that you can use the product:
+
+    - Using the [Face Recognition Developer Portal](https://developer.opencv.fr) User Interface to manage your **Developer** teams, **Persons** who are registered for the search API to recognize, and **Collections** - groups of persons.
+
+    - Using the [Python Face Recognition SDK](https://docs.opencv.fr/python) to integrate the API into your Python applications.
+
+    - Using the [C++ Face Recognition SDK](https://docs.opencv.fr/cpp) to integrate the API into your C++ applications.
+
+    - Using the REST API (below) to integrate the API functionality into your applications in other languages.
+
+
+    To use the REST API described below, you will need to create an account and obtain an API key. You can do this by signing up for a free account at [Face Recognition Developer Portal](https://developer.opencv.fr).
+
+
+    Once you have signed up, you will see an **API Developer Key** in the Dashboard. This is the key that you will use to authenticate your requests to the API. You can also create additional Developers (each with their own key) for your applications.
+
+
+    To use the API, you will need to send the API key in the `X-API-Key` header of each request. For example, using `curl`:
+
+    ```
+
+    curl -X GET "https://<region>.opencv.fr/persons" -H "accept: application/json" -H "X-API-Key: <your API key>"
+
+    ```
+
+
+    `<region>` is the data storage region that you selected when you created your account. It can be `us`, `eu`, or `sg`.
+
+
+    To help you try out the functionality quickly, the below live docs include a **Try it out** button for each endpoint. This will allow you to send a request to the API and see the response. Before you can use this, you will need to grab your API key from the Dashboard and enter it into the field that shows up when you click the green **Authorize** button (below this line on the right).
+
+    '
+  version: 2026.07.15.0759
+tags:
+- name: Collections
+  description: Collections are groups of registered `Persons`. You can use collections to organize your registered persons and to search for persons within a specific collection. You can also use collections to manage access to your registered persons. For example, you can create a collection for each of your customers/organization sub-units and only allow them to search for persons in their own collection.
+paths:
+  /collections:
+    get:
+      tags:
+      - Collections
+      summary: Get Collections
+      operationId: get_collections_collections_get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Skip
+      - name: take
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 0
+          default: 20
+          title: Take
+      - name: order
+        in: query
+        required: false
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/OrderEnum'
+          default: ASC
+          title: Order
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+          title: Search
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCollectionSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /collections/{comma_separated_ids}:
+    get:
+      tags:
+      - Collections
+      summary: Get Collections
+      operationId: get_collections_collections__comma_separated_ids__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: comma_separated_ids
+        in: path
+        required: true
+        schema:
+          title: Comma Separated Ids
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CollectionSchema'
+                title: Response Get Collections Collections  Comma Separated Ids  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /collections/person/{person_id}:
+    get:
+      tags:
+      - Collections
+      summary: Get Collections For Person
+      operationId: get_collections_for_person_collections_person__person_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: person_id
+        in: path
+        required: true
+        schema:
+          title: Person Id
+      - name: skip
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Skip
+      - name: take
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 0
+          default: 20
+          title: Take
+      - name: order
+        in: query
+        required: false
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/OrderEnum'
+          default: ASC
+          title: Order
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+          title: Search
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCollectionSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /collection:
+    post:
+      tags:
+      - Collections
+      summary: Create Collection
+      operationId: create_collection_collection_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCollectionSchema'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+    patch:
+      tags:
+      - Collections
+      summary: Update Collection
+      operationId: update_collection_collection_patch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCollectionSchema'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+  /collection/{collection_id}:
+    delete:
+      tags:
+      - Collections
+      summary: Delete Collection
+      operationId: delete_collection_collection__collection_id__delete
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: collection_id
+        in: path
+        required: true
+        schema:
+          title: Collection Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletedItemSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Collections
+      summary: Get Collection
+      operationId: get_collection_collection__collection_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: collection_id
+        in: path
+        required: true
+        schema:
+          title: Collection Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /collection/person:
+    post:
+      tags:
+      - Collections
+      summary: Add Person To A Collection
+      operationId: add_person_to_a_collection_collection_person_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkSchema'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+  /collection/persons:
+    patch:
+      tags:
+      - Collections
+      summary: Update Collection Person Associations
+      operationId: update_collection_person_associations_collection_persons_patch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinksSchema'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinksSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+  /collection/person/{collection_id}/{person_id}:
+    delete:
+      tags:
+      - Collections
+      summary: Remove Person From Collection
+      operationId: remove_person_from_collection_collection_person__collection_id___person_id__delete
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: collection_id
+        in: path
+        required: true
+        schema:
+          title: Collection Id
+      - name: person_id
+        in: path
+        required: true
+        schema:
+          title: Person Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    LinkSchema:
+      properties:
+        collection_id:
+          type: string
+          maxLength: 36
+          minLength: 36
+          title: Collection Id
+        person_id:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Person Id
+      type: object
+      required:
+      - collection_id
+      - person_id
+      title: LinkSchema
+    ListCollectionSchema:
+      properties:
+        count:
+          type: integer
+          title: Count
+        collections:
+          items:
+            $ref: '#/components/schemas/CollectionSchema'
+          type: array
+          title: Collections
+      type: object
+      required:
+      - count
+      - collections
+      title: ListCollectionSchema
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    LinksSchema:
+      properties:
+        collection_id:
+          type: string
+          maxLength: 36
+          minLength: 36
+          title: Collection Id
+        new_person_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: New Person Ids
+        removed_person_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Removed Person Ids
+      type: object
+      required:
+      - collection_id
+      title: LinksSchema
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    UpdateCollectionSchema:
+      properties:
+        id:
+          type: string
+          maxLength: 36
+          minLength: 36
+          title: Id
+        name:
+          anyOf:
+          - type: string
+            maxLength: 50
+            minLength: 1
+          - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+            maxLength: 100
+            minLength: 0
+          - type: 'null'
+          title: Description
+      type: object
+      required:
+      - id
+      title: UpdateCollectionSchema
+    DeletedItemSchema:
+      properties:
+        id:
+          type: string
+          title: Id
+      type: object
+      title: DeletedItemSchema
+    CreateCollectionSchema:
+      properties:
+        name:
+          type: string
+          maxLength: 50
+          minLength: 1
+          title: Name
+        description:
+          anyOf:
+          - type: string
+            maxLength: 100
+            minLength: 0
+          - type: 'null'
+          title: Description
+      type: object
+      required:
+      - name
+      title: CreateCollectionSchema
+    OrderEnum:
+      type: string
+      enum:
+      - ASC
+      - DESC
+      title: OrderEnum
+    CollectionSchema:
+      properties:
+        id:
+          type: string
+          maxLength: 36
+          minLength: 36
+          title: Id
+        name:
+          type: string
+          maxLength: 50
+          minLength: 1
+          title: Name
+        description:
+          anyOf:
+          - type: string
+            maxLength: 100
+            minLength: 0
+          - type: 'null'
+          title: Description
+        count:
+          type: integer
+          title: Count
+        create_date:
+          type: string
+          format: date-time
+          title: Create Date
+        modified_date:
+          type: string
+          format: date-time
+          title: Modified Date
+      type: object
+      required:
+      - id
+      - name
+      - count
+      - create_date
+      - modified_date
+      title: CollectionSchema
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      in: header
+      name: x-api-key

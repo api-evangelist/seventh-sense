@@ -1,0 +1,726 @@
+openapi: 3.1.0
+info:
+  title: OpenCV Face Recognition Collections Search API
+  description: '
+
+    OpenCV Face Recognition allows you to either **manually** (through our [Developer Portal](https://developer.opencv.fr) UI) or **programmatically** (through our SDKs or REST API) detect, recognize, and verify faces in images. It is based on state-of-the-art (SOTA) algorithms and uses deep learning face recognition models. The API is designed to be easy to use and integrate into your applications. It is available as this hosted service or you can deploy it yourself on your own servers.
+
+
+    There are four ways that you can use the product:
+
+    - Using the [Face Recognition Developer Portal](https://developer.opencv.fr) User Interface to manage your **Developer** teams, **Persons** who are registered for the search API to recognize, and **Collections** - groups of persons.
+
+    - Using the [Python Face Recognition SDK](https://docs.opencv.fr/python) to integrate the API into your Python applications.
+
+    - Using the [C++ Face Recognition SDK](https://docs.opencv.fr/cpp) to integrate the API into your C++ applications.
+
+    - Using the REST API (below) to integrate the API functionality into your applications in other languages.
+
+
+    To use the REST API described below, you will need to create an account and obtain an API key. You can do this by signing up for a free account at [Face Recognition Developer Portal](https://developer.opencv.fr).
+
+
+    Once you have signed up, you will see an **API Developer Key** in the Dashboard. This is the key that you will use to authenticate your requests to the API. You can also create additional Developers (each with their own key) for your applications.
+
+
+    To use the API, you will need to send the API key in the `X-API-Key` header of each request. For example, using `curl`:
+
+    ```
+
+    curl -X GET "https://<region>.opencv.fr/persons" -H "accept: application/json" -H "X-API-Key: <your API key>"
+
+    ```
+
+
+    `<region>` is the data storage region that you selected when you created your account. It can be `us`, `eu`, or `sg`.
+
+
+    To help you try out the functionality quickly, the below live docs include a **Try it out** button for each endpoint. This will allow you to send a request to the API and see the response. Before you can use this, you will need to grab your API key from the Dashboard and enter it into the field that shows up when you click the green **Authorize** button (below this line on the right).
+
+    '
+  version: 2026.07.15.0759
+tags:
+- name: Search
+  description: The endpoints below allow you to search for previously registered persons using a face image obtained at a later time. The search is performed using a deep learning model trained on millions of face images. The search results are ranked by the similarity score, which is a number between 0 and 1, where 1 is a perfect match and 0 is a perfect mismatch. The search results are returned in order of decreasing similarity score, but above the specified `min_score` threshold (default is 0.81). The `max_results` parameter is optional and allows you to control the maximum number of returned results. By default, it is set to 10, but you can customize this number for your specific use case. The maximum value you can set is 100.<br/><br/>**Note:** The `/search` endpoint does not store any information on our servers. It is a one-time search of a set of images against registered persons. If you want to store the images and search for them later, use the `/person` endpoint to register persons for a later search using the endpoints below.
+paths:
+  /search-live-face:
+    post:
+      tags:
+      - Search
+      summary: Search And Check Liveness From One Image Of Same Person
+      operationId: search_and_check_liveness_from_one_image_of_same_person_search_live_face_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchLiveFaceScheme'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchLivePersonResultSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+  /search:
+    post:
+      tags:
+      - Search
+      summary: Search From One Or More Images Of Same Person
+      operationId: search_from_one_or_more_images_of_same_person_search_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchPersonSchema'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SearchPersonResultSchema'
+                type: array
+                title: Response Search From One Or More Images Of Same Person Search Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+  /search/crops:
+    post:
+      tags:
+      - Search
+      summary: Search From One Or More Crops Of Same Person
+      operationId: search_from_one_or_more_crops_of_same_person_search_crops_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchPersonSchema'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SearchPersonResultSchema'
+                type: array
+                title: Response Search From One Or More Crops Of Same Person Search Crops Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+  /detect:
+    post:
+      tags:
+      - Search
+      summary: Detect Faces And Optionally Search For Persons
+      operationId: detect_faces_and_optionally_search_for_persons_detect_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DetectionRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/DetectionSchema'
+                type: array
+                title: Response Detect Faces And Optionally Search For Persons Detect Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+  /verify:
+    post:
+      tags:
+      - Search
+      summary: Verify Match From One Or More Images Of Same Person
+      operationId: verify_match_from_one_or_more_images_of_same_person_verify_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyPersonSchema'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyPersonResultSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+  /head-count:
+    post:
+      tags:
+      - Search
+      summary: Count Heads
+      operationId: count_heads_head_count_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HeadCountRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HeadCountSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+components:
+  schemas:
+    SearchModeEnum:
+      type: string
+      enum:
+      - ACCURATE
+      - FAST
+      title: SearchModeEnum
+    VerifyPersonResultSchema:
+      properties:
+        match:
+          anyOf:
+          - $ref: '#/components/schemas/SearchPersonResultSchema'
+          - type: 'null'
+      type: object
+      title: VerifyPersonResultSchema
+    ThumbnailSchema:
+      properties:
+        id:
+          type: string
+          title: Id
+        thumbnail:
+          type: string
+          title: Thumbnail
+      type: object
+      required:
+      - id
+      title: ThumbnailSchema
+    SearchPersonSchema:
+      properties:
+        collection_id:
+          anyOf:
+          - type: string
+            maxLength: 36
+            minLength: 36
+          - type: 'null'
+          title: Collection Id
+        images:
+          items:
+            type: string
+          type: array
+          maxItems: 3
+          minItems: 1
+          title: Images
+        max_results:
+          anyOf:
+          - type: integer
+            maximum: 500.0
+            minimum: 1.0
+          - type: 'null'
+          title: Max Results
+          default: 10
+        min_score:
+          anyOf:
+          - type: number
+            maximum: 1.0
+            minimum: 0.0
+          - type: string
+          - type: 'null'
+          title: Min Score
+          default: 0.81
+        search_mode:
+          anyOf:
+          - $ref: '#/components/schemas/SearchModeEnum'
+          - type: 'null'
+          default: FAST
+      type: object
+      required:
+      - images
+      title: SearchPersonSchema
+      example:
+        collection_id: OPTIONAL_COLLECTION_ID_TO_RESTRICT_SEARCH
+        images:
+        - base64_encoded_string
+        max_results: 10
+        min_score: 0.81
+        search_mode: FAST/ACCURATE choose one
+    DetectionLandmarksSchema:
+      properties:
+        left_eye:
+          items:
+            type: integer
+          type: array
+          maxItems: 2
+          minItems: 2
+          title: Left Eye
+        right_eye:
+          items:
+            type: integer
+          type: array
+          maxItems: 2
+          minItems: 2
+          title: Right Eye
+        nose:
+          items:
+            type: integer
+          type: array
+          maxItems: 2
+          minItems: 2
+          title: Nose
+        left_mouth:
+          items:
+            type: integer
+          type: array
+          maxItems: 2
+          minItems: 2
+          title: Left Mouth
+        right_mouth:
+          items:
+            type: integer
+          type: array
+          maxItems: 2
+          minItems: 2
+          title: Right Mouth
+      type: object
+      required:
+      - left_eye
+      - right_eye
+      - nose
+      - left_mouth
+      - right_mouth
+      title: DetectionLandmarksSchema
+    HeadCountRequest:
+      properties:
+        image:
+          type: string
+          title: Image
+        confidence:
+          anyOf:
+          - type: integer
+            maximum: 99.0
+            minimum: 1.0
+          - type: 'null'
+          title: Confidence
+          default: 75
+      type: object
+      required:
+      - image
+      title: HeadCountRequest
+      example:
+        confidence: 75
+        image: base64_encoded_string
+    VerifyPersonSchema:
+      properties:
+        id:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Id
+        images:
+          items:
+            type: string
+          type: array
+          minItems: 1
+          title: Images
+        min_score:
+          anyOf:
+          - type: number
+            maximum: 1.0
+            minimum: 0.0
+          - type: string
+          - type: 'null'
+          title: Min Score
+          default: 0.81
+        verification_mode:
+          anyOf:
+          - $ref: '#/components/schemas/SearchModeEnum'
+          - type: 'null'
+          default: ACCURATE
+      type: object
+      required:
+      - id
+      - images
+      title: VerifyPersonSchema
+      example:
+        id: ID_OF_PERSON_BEING_VERIFIED
+        images:
+        - base64_encoded_string
+        min_score: 0.81
+        verification_mode: FAST/ACCURATE choose one
+    OSEnum:
+      type: string
+      enum:
+      - DESKTOP
+      - ANDROID
+      - IOS
+      title: OSEnum
+    CollectionSchema:
+      properties:
+        id:
+          type: string
+          maxLength: 36
+          minLength: 36
+          title: Id
+        name:
+          type: string
+          maxLength: 50
+          minLength: 1
+          title: Name
+        description:
+          anyOf:
+          - type: string
+            maxLength: 100
+            minLength: 0
+          - type: 'null'
+          title: Description
+        count:
+          type: integer
+          title: Count
+        create_date:
+          type: string
+          format: date-time
+          title: Create Date
+        modified_date:
+          type: string
+          format: date-time
+          title: Modified Date
+      type: object
+      required:
+      - id
+      - name
+      - count
+      - create_date
+      - modified_date
+      title: CollectionSchema
+    DetectionSearchSchema:
+      properties:
+        collection_id:
+          anyOf:
+          - type: string
+            maxLength: 36
+            minLength: 36
+          - type: 'null'
+          title: Collection Id
+        max_results:
+          anyOf:
+          - type: integer
+            maximum: 100.0
+            minimum: 1.0
+          - type: 'null'
+          title: Max Results
+          default: 10
+        min_score:
+          anyOf:
+          - type: number
+            maximum: 1.0
+            minimum: 0.0
+          - type: string
+          - type: 'null'
+          title: Min Score
+          default: 0.81
+        search_mode:
+          anyOf:
+          - $ref: '#/components/schemas/SearchModeEnum'
+          - type: 'null'
+          default: FAST
+      type: object
+      title: DetectionSearchSchema
+      example:
+        collection_id: OPTIONAL_COLLECTION_ID_TO_RESTRICT_SEARCH
+        max_results: 10
+        min_score: 0.81
+        search_mode: FAST/ACCURATE choose one
+    DetectionRequest:
+      properties:
+        image:
+          type: string
+          title: Image
+        search:
+          anyOf:
+          - $ref: '#/components/schemas/DetectionSearchSchema'
+          - type: 'null'
+      type: object
+      required:
+      - image
+      title: DetectionRequest
+      example:
+        image: base64_encoded_string
+        search:
+          collection_id: OPTIONAL_COLLECTION_ID_TO_RESTRICT_SEARCH
+          max_results: 10
+          min_score: 0.81
+          search_mode: FAST/ACCURATE choose one
+    HeadCountSchema:
+      properties:
+        count:
+          type: integer
+          title: Count
+      type: object
+      required:
+      - count
+      title: HeadCountSchema
+    SearchLivePersonResultSchema:
+      properties:
+        liveness_score:
+          type: number
+          title: Liveness Score
+        persons:
+          items:
+            $ref: '#/components/schemas/SearchPersonResultSchema'
+          type: array
+          title: Persons
+      type: object
+      required:
+      - liveness_score
+      - persons
+      title: SearchLivePersonResultSchema
+    DetectionSchema:
+      properties:
+        box:
+          $ref: '#/components/schemas/DetectionBoxSchema'
+        landmarks:
+          $ref: '#/components/schemas/DetectionLandmarksSchema'
+        detection_score:
+          type: number
+          title: Detection Score
+        thumbnail:
+          type: string
+          title: Thumbnail
+        persons:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/SearchPersonResultSchema'
+            type: array
+          - type: 'null'
+          title: Persons
+      type: object
+      required:
+      - box
+      - landmarks
+      - detection_score
+      - thumbnail
+      title: DetectionSchema
+    SearchPersonResultSchema:
+      properties:
+        id:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Id
+        name:
+          anyOf:
+          - type: string
+            maxLength: 100
+            minLength: 1
+          - type: 'null'
+          title: Name
+        thumbnails:
+          items:
+            $ref: '#/components/schemas/ThumbnailSchema'
+          type: array
+          title: Thumbnails
+        gender:
+          anyOf:
+          - $ref: '#/components/schemas/GenderEnum'
+          - type: 'null'
+        date_of_birth:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Date Of Birth
+        nationality:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Nationality
+        notes:
+          anyOf:
+          - type: string
+            maxLength: 500
+            minLength: 0
+          - type: 'null'
+          title: Notes
+        create_date:
+          type: string
+          format: date-time
+          title: Create Date
+        modified_date:
+          type: string
+          format: date-time
+          title: Modified Date
+        score:
+          type: number
+          title: Score
+        collections:
+          items:
+            $ref: '#/components/schemas/CollectionSchema'
+          type: array
+          title: Collections
+      type: object
+      required:
+      - id
+      - create_date
+      - modified_date
+      - score
+      - collections
+      title: SearchPersonResultSchema
+    DetectionBoxSchema:
+      properties:
+        left:
+          type: integer
+          title: Left
+        top:
+          type: integer
+          title: Top
+        right:
+          type: integer
+          title: Right
+        bottom:
+          type: integer
+          title: Bottom
+      type: object
+      required:
+      - left
+      - top
+      - right
+      - bottom
+      title: DetectionBoxSchema
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SearchLiveFaceScheme:
+      properties:
+        os:
+          anyOf:
+          - $ref: '#/components/schemas/OSEnum'
+          - type: 'null'
+          default: DESKTOP
+        image:
+          type: string
+          title: Image
+        collection_id:
+          anyOf:
+          - type: string
+            maxLength: 36
+            minLength: 36
+          - type: 'null'
+          title: Collection Id
+        min_score:
+          anyOf:
+          - type: number
+            maximum: 1.0
+            minimum: 0.81
+          - type: string
+          - type: 'null'
+          title: Min Score
+          default: 0.81
+        max_results:
+          anyOf:
+          - type: integer
+            maximum: 100.0
+            minimum: 1.0
+          - type: 'null'
+          title: Max Results
+          default: 10
+        search_mode:
+          anyOf:
+          - $ref: '#/components/schemas/SearchModeEnum'
+          - type: 'null'
+          default: FAST
+      type: object
+      required:
+      - image
+      title: SearchLiveFaceScheme
+      example:
+        collection_id: OPTIONAL_COLLECTION_ID_TO_RESTRICT_SEARCH
+        image: base64_encoded_string
+        max_results: 10
+        min_score: 0.81
+        os: DESKTOP
+        search_mode: FAST/ACCURATE choose one
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    GenderEnum:
+      type: string
+      enum:
+      - M
+      - F
+      title: GenderEnum
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      in: header
+      name: x-api-key
