@@ -1,0 +1,39 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for OpenCV Face Recognition API
+  version: 1.0.0
+extends: openapi/seventh-sense-opencv-fr-openapi.json
+generated: '2026-07-21'
+method: generated
+source: openapi/seventh-sense-opencv-fr-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist:
+      catalog: https://apis.io/seventh-sense
+      provider: Seventh Sense
+      product: OpenCV Face Recognition (OpenCV FR)
+      maintainer: Kin Lane <kin@apievangelist.com>
+      regions:
+      - {code: sg, host: https://sg.opencv.fr}
+      - {code: us, host: https://us.opencv.fr}
+      - {code: eu, host: https://eu.opencv.fr}
+      artifacts:
+      - apis.yml
+      - authentication/seventh-sense-authentication.yml
+      - conventions/seventh-sense-conventions.yml
+      - conformance/seventh-sense-conformance.yml
+      - errors/seventh-sense-problem-types.yml
+      - lifecycle/seventh-sense-lifecycle.yml
+      - data-model/seventh-sense-data-model.yml
+      - packages/seventh-sense-packages.yml
+      - mcp/seventh-sense-mcp.yml
+      - security/seventh-sense-domain-security.yml
+- target: $.servers
+  update:
+  - url: https://us.opencv.fr
+    description: United States region
+  - url: https://sg.opencv.fr
+    description: Singapore region
+  - url: https://eu.opencv.fr
+    description: Europe region

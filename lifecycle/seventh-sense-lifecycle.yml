@@ -1,0 +1,23 @@
+generated: '2026-07-21'
+method: derived
+source: >-
+  Derived from openapi/seventh-sense-opencv-fr-openapi.json (info.version, no
+  deprecated operations) and the OpenCV FR documentation at
+  https://docs.opencv.fr / https://us.opencv.fr/docs. No published deprecation
+  policy, Sunset/Deprecation headers, SLA, or status page were found.
+versioning:
+  scheme: date-based build version
+  mechanism: reported in OpenAPI info.version; no per-request version header documented.
+  current_version: '2026.07.15.0759'
+  docs: https://us.opencv.fr/docs
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecated_operations: []
+  notes: No RFC 8594 Sunset/Deprecation headers or deprecation policy documented; no operations flagged deprecated in the OpenAPI.
+sla:
+  url: null
+  public_uptime_target: null
+status_page:
+  url: null
+  notes: No public status page discovered for the opencv.fr API hosts.

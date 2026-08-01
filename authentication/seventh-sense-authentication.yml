@@ -1,0 +1,15 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/seventh-sense-opencv-fr-openapi.json
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: APIKeyHeader
+  type: apiKey
+  in: header
+  parameter: x-api-key
+  sources:
+  - openapi/seventh-sense-opencv-fr-openapi.json

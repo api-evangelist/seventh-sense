@@ -1,7 +1,27 @@
 aid: seventh-sense
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/seventh-sense.png
 name: Seventh Sense
-description: Seventh Sense is a company surfaced as a portfolio company of 500-global and added to the
-  API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Seventh Sense AI is a Singapore-based deep-tech company building privacy-preserving,
+  face-based identity and biometric verification technology. Its OpenCV Face Recognition
+  (OpenCV FR) platform — ranked among the top 10 facial recognition algorithms globally by
+  NIST — provides face detection, matching, liveness detection, search and person/collection
+  management through a multi-region REST API and Python/C++ SDKs. Seventh Sense also develops
+  the SenseCrypt suite (eID, PKI and self-sovereign identity built on distributed ledgers,
+  "0% biometrics, 100% privacy") and SenseVantage multimodal video AI. The company is SOC,
+  ISO 27001 certified and GDPR compliant, serving enterprise and government customers.
 url: https://raw.githubusercontent.com/api-evangelist/seventh-sense/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -11,15 +31,175 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
-apis: []
+- Face Recognition
+- Biometrics
+- Identity Verification
+- Liveness Detection
+- Artificial Intelligence
+- Computer Vision
+- Security
+apis:
+- aid: seventh-sense:seventh-sense-collections-api
+  name: Seventh Sense Collections API
+  description: >-
+    Collections are groups of registered `Persons`. You can use collections to organize your registered
+    persons and to search for persons within a specific collection. You can also use collections to manage
+    access to your registered persons. For example, you can create a collection for each of your customers/organization
+    sub-units and only allow them to search for persons in their own collection.
+  humanURL: https://us.opencv.fr/docs
+  baseURL: https://us.opencv.fr
+  tags:
+  - Collections
+  properties:
+  - type: OpenAPI
+    url: openapi/seventh-sense-collections-api-openapi.yml
+  - type: Documentation
+    url: https://docs.opencv.fr
+  - type: APIReference
+    url: https://us.opencv.fr/docs
+- aid: seventh-sense:seventh-sense-face-anti-spoofing-liveness-api
+  name: Seventh Sense Face Anti-Spoofing / Liveness API
+  description: >-
+    The `/liveness` endpoint allows you to determine if a face image is of a real person or a spoofed
+    image (eg. a printed image of a face, or an image captured from a tablet's screen). The endpoint returns
+    a score between 0 and 1, where 1 is a real person and 0 is a spoofed image, the threshold for the
+    image to be considered live is >= 0.5.<br/><br/> Our liveness achieved Attack Presentation Classification
+    Error Rate (APCER) of 0% and reached iBeta Level 2 compliance in accordance with ISO 30107-3. <br/><br/>**Note:**
+    The `/liveness` endpoint does not store any information on our servers. It is a one-time classification
+    of an image using a deep learning model. If you want to store the images and search for them later,
+    use the `/person` endpoint to register persons for a later search using the `/search` endpoint.<br/><br/>To
+    ensure fraudsters cannot use high-resolution print outs, masks or video playbacks to spoof face recognition
+    systems, liveness image has a higher requirement on image:<br/><br/>Liveness image requirement:<br/>
+    <ul> <li>There should only be one main face on the image. It should be fully visible within a frame
+    and fully open without any occlusions. No crop is allowed. Small faces in the background are not taken
+    into account.</li> <li>The minimum size of a face box that can be processed is 224x224 pixels.</li>
+    <li>The padding between the face box and the image's borders should be at least 25 pixels.</li> <li>The
+    distance between the pupils on the face should be at least 80 pixels.</li> <li>The out-of-plane rotation
+    angle (face pitch and yaw) should be no more than ±30 degrees.</li> <li>Fish-eye lenses and sunglass
+    images are not supported.</li> </ul>
+  humanURL: https://us.opencv.fr/docs
+  baseURL: https://us.opencv.fr
+  tags:
+  - Face Anti-Spoofing / Liveness
+  properties:
+  - type: OpenAPI
+    url: openapi/seventh-sense-face-anti-spoofing-liveness-api-openapi.yml
+  - type: Documentation
+    url: https://docs.opencv.fr
+  - type: APIReference
+    url: https://us.opencv.fr/docs
+- aid: seventh-sense:seventh-sense-face-verification-api
+  name: Seventh Sense Face Verification API
+  description: >-
+    The `/compare` endpoint allows you to compare two sets of face images to determine if they correspond
+    to the same person. A score higher than 0.81 is a good indicator that the two sets of images belong
+    to the same person. You can also use a score of 0.75 or higher if the images are of the same person
+    but taken at different times (years apart). The score is a number between 0 and 1, where 1 is a perfect
+    match and 0 is a perfect mismatch. The score is calculated using a deep learning model trained on
+    millions of face images. <br/><br/>**Note:** The `/compare` endpoint does not store any information
+    on our servers. It is a one-time comparison of two sets of images. If you want to store the images
+    and search for them later, use the `/person` endpoints to manage persons for a later search using
+    the `/search` endpoint.
+  humanURL: https://us.opencv.fr/docs
+  baseURL: https://us.opencv.fr
+  tags:
+  - Face Verification
+  properties:
+  - type: OpenAPI
+    url: openapi/seventh-sense-face-verification-api-openapi.yml
+  - type: Documentation
+    url: https://docs.opencv.fr
+  - type: APIReference
+    url: https://us.opencv.fr/docs
+- aid: seventh-sense:seventh-sense-persons-api
+  name: Seventh Sense Persons API
+  description: >-
+    Persons are registered persons that you can later search for using face images. Registering a person
+    allows you to search for them later using the `/search` endpoint. You can also use the `/person` endpoint(s)
+    to update the registered person's name and/or add additional images to the registered person. Registering
+    a person stores thumbnail face images and information on our servers. You can delete a registered
+    person using the `DELETE /person/{person_id}` endpoint.
+  humanURL: https://us.opencv.fr/docs
+  baseURL: https://us.opencv.fr
+  tags:
+  - Persons
+  properties:
+  - type: OpenAPI
+    url: openapi/seventh-sense-persons-api-openapi.yml
+  - type: Documentation
+    url: https://docs.opencv.fr
+  - type: APIReference
+    url: https://us.opencv.fr/docs
+- aid: seventh-sense:seventh-sense-search-api
+  name: Seventh Sense Search API
+  description: >-
+    The endpoints below allow you to search for previously registered persons using a face image obtained
+    at a later time. The search is performed using a deep learning model trained on millions of face images.
+    The search results are ranked by the similarity score, which is a number between 0 and 1, where 1
+    is a perfect match and 0 is a perfect mismatch. The search results are returned in order of decreasing
+    similarity score, but above the specified `min_score` threshold (default is 0.81). The `max_results`
+    parameter is optional and allows you to control the maximum number of returned results. By default,
+    it is set to 10, but you can customize this number for your specific use case. The maximum value you
+    can set is 100.<br/><br/>**Note:** The `/search` endpoint does not store any information on our servers.
+    It is a one-time search of a set of images against registered persons. If you want to store the images
+    and search for them later, use the `/person` endpoint to register persons for a later search using
+    the endpoints below.
+  humanURL: https://us.opencv.fr/docs
+  baseURL: https://us.opencv.fr
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/seventh-sense-search-api-openapi.yml
+  - type: Documentation
+    url: https://docs.opencv.fr
+  - type: APIReference
+    url: https://us.opencv.fr/docs
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 13
+  pass: local-v1
 common:
+- type: DomainSecurity
+  url: security/seventh-sense-domain-security.yml
+- type: Authentication
+  url: authentication/seventh-sense-authentication.yml
+- type: Packages
+  url: packages/seventh-sense-packages.yml
+- type: SDKs
+  url: packages/seventh-sense-packages.yml
+- type: Conventions
+  url: conventions/seventh-sense-conventions.yml
+- type: Conformance
+  url: conformance/seventh-sense-conformance.yml
+- type: Compliance
+  url: conformance/seventh-sense-conformance.yml
+- type: ErrorCatalog
+  url: errors/seventh-sense-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/seventh-sense-lifecycle.yml
+- type: DataModel
+  url: data-model/seventh-sense-data-model.yml
+- type: MCPServer
+  url: mcp/seventh-sense-mcp.yml
+- type: LLMsTxt
+  url: llms/seventh-sense-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
 - type: Website
   url: https://seventhsense.ai
+- type: DeveloperPortal
+  url: https://developer.opencv.fr
+- type: Documentation
+  url: https://docs.opencv.fr
+- type: SignUp
+  url: https://developer.opencv.fr/ui/#/onboard/register?details=true

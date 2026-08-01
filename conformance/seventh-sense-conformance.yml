@@ -1,0 +1,45 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  Derived from openapi/seventh-sense-opencv-fr-openapi.json (securitySchemes,
+  error schema, pagination params) and Seventh Sense compliance claims published
+  on https://seventhsense.ai and the liveness endpoint description in the OpenAPI
+  (iBeta Level 2 / ISO 30107-3). Evidence recorded per standard.
+standards:
+  - id: apikey-auth
+    conforms: true
+    evidence: openapi securityScheme APIKeyHeader (apiKey in header x-api-key).
+  - id: oauth2
+    conforms: false
+    evidence: No oauth2 securityScheme in the OpenAPI; auth is API-key only.
+  - id: oidc
+    conforms: false
+    evidence: No /.well-known/openid-configuration on the API hosts (404).
+  - id: rfc9457
+    conforms: false
+    evidence: >-
+      Errors use a FastAPI { "detail": [...] } envelope, not
+      application/problem+json.
+  - id: pagination
+    conforms: true
+    evidence: List endpoints support skip/take offset pagination with order/order_by/search.
+  - id: iso-27001
+    conforms: true
+    evidence: Seventh Sense states ISO 27001 certification on seventhsense.ai.
+  - id: soc-2
+    conforms: true
+    evidence: Seventh Sense states AICPA SOC certification on seventhsense.ai.
+  - id: gdpr
+    conforms: true
+    evidence: Seventh Sense states EU GDPR compliance on seventhsense.ai.
+  - id: iso-30107-3
+    conforms: true
+    evidence: >-
+      The /liveness endpoint reports iBeta Level 2 presentation-attack-detection
+      compliance (0% APCER) in accordance with ISO 30107-3 (OpenAPI tag
+      description).
+  - id: nist-frvt
+    conforms: true
+    evidence: >-
+      OpenCV FR is ranked among the top 10 facial recognition algorithms by NIST
+      (FRVT, as of Q1 2022) per seventhsense.ai.

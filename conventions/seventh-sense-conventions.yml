@@ -1,0 +1,52 @@
+generated: '2026-07-21'
+method: derived
+source: >-
+  Derived from openapi/seventh-sense-opencv-fr-openapi.json (securitySchemes,
+  list parameters, HTTPValidationError schema) and the OpenCV FR REST API docs
+  at https://us.opencv.fr/docs. Cross-cutting request/response semantics that
+  OpenAPI does not fully express.
+description: >-
+  How the OpenCV Face Recognition REST API behaves across operations:
+  authentication, multi-region routing, pagination, filtering/ordering, error
+  envelope, and versioning.
+base_url: https://us.opencv.fr
+regions:
+  - {code: sg, host: https://sg.opencv.fr, name: Singapore}
+  - {code: us, host: https://us.opencv.fr, name: United States}
+  - {code: eu, host: https://eu.opencv.fr, name: Europe}
+api_style: REST over HTTPS, JSON request/response bodies (image data base64-encoded)
+authentication:
+  scheme: API key in request header
+  header: x-api-key
+  key_name: developer key
+  source: https://developer.opencv.fr
+  detail: authentication/seventh-sense-authentication.yml
+idempotency:
+  supported: false
+  notes: >-
+    The API documents no Idempotency-Key header. Stateless endpoints
+    (/compare, /search, /liveness, /detect, /head-count) perform one-time
+    computations and store nothing; person/collection mutations are addressed
+    by id.
+pagination:
+  style: offset
+  request_params:
+    skip: number of records to skip (offset)
+    take: number of records to return (page size)
+  filter_params:
+    search: free-text filter on list endpoints
+    order_by: field to sort by
+    order: sort direction (asc/desc)
+  applies_to: GET /persons, GET /collections
+versioning:
+  scheme: date-based build version
+  example: '2026.07.15.0759'
+  mechanism: reported in the OpenAPI info.version; no per-request version header documented.
+error_envelope:
+  shape: '{ "detail": [ { "loc": [...], "msg": string, "type": string } ] }'
+  media_type: application/json
+  status: 422 for request validation errors (FastAPI HTTPValidationError)
+  detail: errors/seventh-sense-problem-types.yml
+rate_limiting:
+  documented: false
+  notes: No published rate-limit headers or quota policy found in the OpenAPI or docs.

@@ -1,0 +1,24 @@
+generated: '2026-07-21'
+method: derived
+source: >-
+  Derived from the object schemas and id-reference fields in
+  openapi/seventh-sense-opencv-fr-openapi.json (PersonSchema, CollectionSchema,
+  ThumbnailSchema and the collection/person/{...}/{...} path relationships) and
+  the OpenCV FR REST API docs. Captures the core entity-relationship graph
+  behind the face-recognition registry.
+docs: https://us.opencv.fr/docs
+notation: >-
+  relationships use has_one / has_many / belongs_to with the foreign-key field;
+  direction is from the entity that owns the reference.
+entities:
+  - {name: Collection, domain: registry, description: A named group of registered persons; scopes search and access.}
+  - {name: Person, domain: registry, description: A registered person, searchable by face, holding thumbnail images.}
+  - {name: Thumbnail, domain: registry, description: A stored face thumbnail image belonging to a person.}
+  - {name: Detection, domain: analysis, description: A detected face (box + landmarks) from the /detect endpoint.}
+  - {name: LivenessResult, domain: analysis, description: A liveness/anti-spoofing score for a single image.}
+  - {name: Score, domain: analysis, description: A similarity score (0..1) produced by compare/search/verify.}
+relationships:
+  - {from: Person, to: Collection, type: belongs_to, via: collection association, notes: persons are added to and removed from collections.}
+  - {from: Collection, to: Person, type: has_many, via: person_id, notes: a collection groups many persons.}
+  - {from: Person, to: Thumbnail, type: has_many, via: thumbnail_id, notes: a person holds many stored face thumbnails.}
+  - {from: Detection, to: Person, type: has_one, via: search match, notes: /detect can optionally search and match a detection to a registered person.}

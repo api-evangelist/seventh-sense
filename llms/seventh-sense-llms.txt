@@ -1,0 +1,43 @@
+# Seventh Sense — OpenCV Face Recognition (OpenCV FR)
+
+> Seventh Sense AI is a Singapore-based deep-tech company building privacy-preserving,
+> face-based identity and biometric verification. The OpenCV Face Recognition (OpenCV FR)
+> platform provides face detection, comparison, verification, liveness detection, search,
+> head counting, and person/collection management via a multi-region REST API and
+> Python/C++ SDKs. Authentication is an x-api-key developer key. This file was GENERATED
+> by the API Evangelist enrichment pipeline from the provider's published OpenAPI and docs;
+> verify current details against the official documentation.
+
+## API
+- Base URLs (multi-region): https://us.opencv.fr (US), https://sg.opencv.fr (Singapore), https://eu.opencv.fr (Europe)
+- Auth: header `x-api-key: <DEVELOPER_KEY>` (get a key at https://developer.opencv.fr)
+- OpenAPI: openapi/seventh-sense-opencv-fr-openapi.json (OpenAPI 3.1.0)
+- Interactive reference: https://us.opencv.fr/docs
+
+## Docs
+- [API Reference / Swagger UI](https://us.opencv.fr/docs)
+- [Documentation home](https://docs.opencv.fr)
+- [Python SDK](https://docs.opencv.fr/python) — `pip install opencv-face-recognition`
+- [C++ SDK](https://docs.opencv.fr/cpp)
+- [Developer portal / sign up](https://developer.opencv.fr)
+
+## Core operations
+- POST /liveness — anti-spoofing / liveness score for one image (iBeta L2, ISO 30107-3)
+- POST /compare — compare two sets of face images (score 0..1; >=0.81 strong match)
+- POST /verify — verify images match a registered person
+- POST /search — search registered persons by face image(s)
+- POST /detect — detect faces (boxes + landmarks), optionally search
+- POST /head-count — count heads/faces in an image
+- Persons: POST/PATCH/GET/DELETE /person, GET /persons (skip/take/order/search)
+- Collections: POST/PATCH/GET/DELETE /collection, GET /collections
+
+## Notes for agents
+- Errors: 422 validation errors return `{ "detail": [ { loc, msg, type } ] }` (not RFC 9457).
+- Stateless endpoints (/compare, /search, /liveness, /detect, /head-count) store nothing.
+- Register persons (/person) into collections before using /search.
+- When installing the SDK, check https://pypi.org/project/opencv-face-recognition/ for the current version rather than pinning a memorized number.
+
+## Company
+- Website: https://seventhsense.ai
+- Also builds: SenseCrypt (eID / PKI / self-sovereign identity), SenseVantage (multimodal video AI)
+- Compliance: SOC, ISO 27001, GDPR

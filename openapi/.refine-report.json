@@ -1,0 +1,22 @@
+{
+  "provider": "seventh-sense",
+  "sources": [
+    "seventh-sense-collections-api-openapi.yml",
+    "seventh-sense-face-anti-spoofing-liveness-api-openapi.yml",
+    "seventh-sense-face-verification-api-openapi.yml",
+    "seventh-sense-persons-api-openapi.yml",
+    "seventh-sense-search-api-openapi.yml"
+  ],
+  "outputs": [
+    "seventh-sense-collections-api-openapi.yml",
+    "seventh-sense-face-anti-spoofing-liveness-api-openapi.yml",
+    "seventh-sense-face-verification-api-openapi.yml",
+    "seventh-sense-persons-api-openapi.yml",
+    "seventh-sense-search-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

@@ -1,0 +1,17 @@
+generated: '2026-07-21'
+method: generated
+source: >-
+  Packaged Agent Skills generated from OpenCV Face Recognition's OpenAPI
+  (openapi/seventh-sense-opencv-fr-openapi.json). Every step is grounded in an
+  operationId verified verbatim in that spec; cross-cutting rules cite
+  ../conventions/, ../errors/ and ../authentication/. No provider-published
+  Agent Skills or AGENTS.md were found.
+skills:
+  - file: seventh-sense-register-and-search-faces.md
+    name: Register persons and search by face
+    api: openapi/seventh-sense-opencv-fr-openapi.json
+    operations: [create_collection_collection_post, create_person_person_post, search_from_one_or_more_images_of_same_person_search_post]
+  - file: seventh-sense-verify-with-liveness.md
+    name: Verify a person with a liveness check
+    api: openapi/seventh-sense-opencv-fr-openapi.json
+    operations: [check_liveness_for_a_single_image_liveness_post, search_and_check_liveness_from_one_image_of_same_person_search_live_face_post, verify_match_from_one_or_more_images_of_same_person_verify_post]

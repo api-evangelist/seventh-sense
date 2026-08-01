@@ -1,0 +1,31 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  https://pypi.org/project/opencv-face-recognition/ (HTTP 200) and the SDK
+  documentation at https://docs.opencv.fr/python and https://docs.opencv.fr/cpp.
+  The Python client is published first-party to PyPI (project homepage points
+  back to docs.opencv.fr). The C++ SDK is documented on the same docs host.
+description: >-
+  First-party OpenCV Face Recognition (OpenCV FR) client libraries by Seventh
+  Sense. The Python SDK is published to PyPI; a C++ SDK is documented on the
+  OpenCV FR docs host.
+packages:
+  - language: python
+    registry: pypi
+    name: opencv-face-recognition
+    url: https://pypi.org/project/opencv-face-recognition/
+    version: 1.1.1
+    install: pip install opencv-face-recognition
+    docs: https://docs.opencv.fr/python
+    official: true
+    note: >-
+      Initialized as FR(BACKEND_URL, DEVELOPER_KEY) where BACKEND_URL is the
+      regional host (sg/us/eu.opencv.fr) and DEVELOPER_KEY is the x-api-key
+      obtained from the developer portal.
+  - language: cpp
+    registry: none
+    name: OpenCV FR C++ SDK
+    url: https://docs.opencv.fr/cpp
+    docs: https://docs.opencv.fr/cpp
+    official: true
+    note: C++ SDK documented on the OpenCV FR docs host; not distributed via a public package registry.

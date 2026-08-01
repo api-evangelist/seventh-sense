@@ -1,0 +1,34 @@
+generated: '2026-07-21'
+method: derived
+format: fastapi-validation-error
+source: >-
+  Derived from the 4xx responses in openapi/seventh-sense-opencv-fr-openapi.json.
+  The only machine-declared error response is 422 (HTTPValidationError). The API
+  does NOT use RFC 9457 application/problem+json; validation errors are returned
+  as a FastAPI-style { "detail": [ ... ] } envelope. Other statuses (401/403/404)
+  are conventional but not enumerated in the spec.
+envelope:
+  media_type: application/json
+  shape: '{ "detail": [ { "loc": [string|int], "msg": string, "type": string } ] }'
+problems:
+  - status: 422
+    title: Unprocessable Entity (Validation Error)
+    meaning: >-
+      One or more request parameters or body fields failed validation. The
+      detail[] array names each offending location (loc), a human message (msg),
+      and a machine type.
+    schema: HTTPValidationError
+    declared: true
+  - status: 401
+    title: Unauthorized
+    meaning: Missing or invalid x-api-key developer key.
+    declared: false
+    remediation: Provide a valid x-api-key header from the developer portal.
+  - status: 403
+    title: Forbidden
+    meaning: The developer key is not authorized for the requested resource/region.
+    declared: false
+  - status: 404
+    title: Not Found
+    meaning: The referenced person, collection, or thumbnail id does not exist.
+    declared: false
