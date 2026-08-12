@@ -169,6 +169,8 @@ x-enrichment:
   artifacts_added: 13
   pass: local-v1
 common:
+- type: Overlay
+  url: overlays/seventh-sense-opencv-fr-overlay.yaml
 - type: DomainSecurity
   url: security/seventh-sense-domain-security.yml
 - type: Authentication
