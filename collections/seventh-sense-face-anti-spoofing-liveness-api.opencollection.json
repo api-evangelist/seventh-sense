@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpenCV Face Recognition Collections Face Anti-Spoofing / Liveness API",
+    "version": "2026.07.15.0759"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Face Anti-Spoofing / Liveness",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Check Liveness For A Single Image",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/liveness",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Check Liveness For A Single Image"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

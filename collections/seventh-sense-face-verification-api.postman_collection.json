@@ -1,0 +1,358 @@
+{
+  "item": [
+    {
+      "id": "8cc3d0dd-9ca2-4f81-bc80-b3fe2207354c",
+      "name": "Face Verification",
+      "description": {
+        "content": "The `/compare` endpoint allows you to compare two sets of face images to determine if they correspond to the same person. A score higher than 0.81 is a good indicator that the two sets of images belong to the same person. You can also use a score of 0.75 or higher if the images are of the same person but taken at different times (years apart). The score is a number between 0 and 1, where 1 is a perfect match and 0 is a perfect mismatch. The score is calculated using a deep learning model trained on millions of face images. <br/><br/>**Note:** The `/compare` endpoint does not store any information on our servers. It is a one-time comparison of two sets of images. If you want to store the images and search for them later, use the `/person` endpoints to manage persons for a later search using the `/search` endpoint.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9b913ee9-24b2-4009-bbc5-035dcb3fa7f3",
+          "name": "Compare Two Lists Of Images Of Same Person",
+          "request": {
+            "name": "Compare Two Lists Of Images Of Same Person",
+            "description": {},
+            "url": {
+              "path": [
+                "compare"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"probe\": [\n    \"<string>\"\n  ],\n  \"gallery\": [\n    \"<string>\"\n  ],\n  \"search_mode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ad33bed5-1d4d-4d05-a537-1a0130423bbc",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compare"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"probe\": [\n    \"<string>\"\n  ],\n  \"gallery\": [\n    \"<string>\"\n  ],\n  \"search_mode\": \"FAST\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"score\": 2941.499083089093\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28f00ac2-6832-42a1-acd4-4c8424b92360",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compare"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"probe\": [\n    \"<string>\"\n  ],\n  \"gallery\": [\n    \"<string>\"\n  ],\n  \"search_mode\": \"FAST\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4901a6cd-294c-42fc-8677-6f803a7a6f12",
+          "name": "Compare Live Face To Gallery Images Of Same Person",
+          "request": {
+            "name": "Compare Live Face To Gallery Images Of Same Person",
+            "description": {},
+            "url": {
+              "path": [
+                "compare-live-face"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"probe\": \"<string>\",\n  \"gallery\": [\n    \"<string>\"\n  ],\n  \"os\": \"<string>\",\n  \"search_mode\": \"<string>\",\n  \"liveness_min_score\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "767f3663-f984-40a1-ba99-06352cdd9c5d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compare-live-face"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"probe\": \"<string>\",\n  \"gallery\": [\n    \"<string>\"\n  ],\n  \"os\": \"IOS\",\n  \"search_mode\": \"FAST\",\n  \"liveness_min_score\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"score\": 1327.4032577030005,\n  \"liveness_score\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed79b588-ddd5-46c4-bf46-0e447d434514",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "compare-live-face"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"probe\": \"<string>\",\n  \"gallery\": [\n    \"<string>\"\n  ],\n  \"os\": \"IOS\",\n  \"search_mode\": \"FAST\",\n  \"liveness_min_score\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b14cdda3-139f-4a80-ade1-9545ac7f18c7",
+    "name": "OpenCV Face Recognition Collections Face Verification API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nOpenCV Face Recognition allows you to either **manually** (through our [Developer Portal](https://developer.opencv.fr) UI) or **programmatically** (through our SDKs or REST API) detect, recognize, and verify faces in images. It is based on state-of-the-art (SOTA) algorithms and uses deep learning face recognition models. The API is designed to be easy to use and integrate into your applications. It is available as this hosted service or you can deploy it yourself on your own servers.\n\nThere are four ways that you can use the product:\n- Using the [Face Recognition Developer Portal](https://developer.opencv.fr) User Interface to manage your **Developer** teams, **Persons** who are registered for the search API to recognize, and **Collections** - groups of persons.\n- Using the [Python Face Recognition SDK](https://docs.opencv.fr/python) to integrate the API into your Python applications.\n- Using the [C++ Face Recognition SDK](https://docs.opencv.fr/cpp) to integrate the API into your C++ applications.\n- Using the REST API (below) to integrate the API functionality into your applications in other languages.\n\nTo use the REST API described below, you will need to create an account and obtain an API key. You can do this by signing up for a free account at [Face Recognition Developer Portal](https://developer.opencv.fr).\n\nOnce you have signed up, you will see an **API Developer Key** in the Dashboard. This is the key that you will use to authenticate your requests to the API. You can also create additional Developers (each with their own key) for your applications.\n\nTo use the API, you will need to send the API key in the `X-API-Key` header of each request. For example, using `curl`:\n```\ncurl -X GET \"https://<region>.opencv.fr/persons\" -H \"accept: application/json\" -H \"X-API-Key: <your API key>\"\n```\n\n`<region>` is the data storage region that you selected when you created your account. It can be `us`, `eu`, or `sg`.\n\nTo help you try out the functionality quickly, the below live docs include a **Try it out** button for each endpoint. This will allow you to send a request to the API and see the response. Before you can use this, you will need to grab your API key from the Dashboard and enter it into the field that shows up when you click the green **Authorize** button (below this line on the right).\n",
+      "type": "text/plain"
+    }
+  }
+}

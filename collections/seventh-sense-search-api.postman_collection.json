@@ -1,0 +1,1013 @@
+{
+  "item": [
+    {
+      "id": "9d7a5db6-a9e4-4111-a18d-1d9c9b962a73",
+      "name": "Search",
+      "description": {
+        "content": "The endpoints below allow you to search for previously registered persons using a face image obtained at a later time. The search is performed using a deep learning model trained on millions of face images. The search results are ranked by the similarity score, which is a number between 0 and 1, where 1 is a perfect match and 0 is a perfect mismatch. The search results are returned in order of decreasing similarity score, but above the specified `min_score` threshold (default is 0.81). The `max_results` parameter is optional and allows you to control the maximum number of returned results. By default, it is set to 10, but you can customize this number for your specific use case. The maximum value you can set is 100.<br/><br/>**Note:** The `/search` endpoint does not store any information on our servers. It is a one-time search of a set of images against registered persons. If you want to store the images and search for them later, use the `/person` endpoint to register persons for a later search using the endpoints below.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6515aa74-4bb2-4755-81fd-c6762c370b8e",
+          "name": "Search And Check Liveness From One Image Of Same Person",
+          "request": {
+            "name": "Search And Check Liveness From One Image Of Same Person",
+            "description": {},
+            "url": {
+              "path": [
+                "search-live-face"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"image\": \"<string>\",\n  \"os\": \"<string>\",\n  \"collection_id\": \"<string>\",\n  \"min_score\": \"<number>\",\n  \"max_results\": \"<integer>\",\n  \"search_mode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4ffef3a4-8ec0-4b38-b0bb-6350f8c2a4f6",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search-live-face"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"image\": \"<string>\",\n  \"os\": \"DESKTOP\",\n  \"collection_id\": \"<string>\",\n  \"min_score\": \"<number>\",\n  \"max_results\": \"<integer>\",\n  \"search_mode\": \"ACCURATE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"liveness_score\": 8062.010293537371,\n  \"persons\": [\n    {\n      \"id\": \"string\",\n      \"create_date\": \"2004-08-01T16:48:08.339Z\",\n      \"modified_date\": \"1956-02-11T12:26:02.959Z\",\n      \"score\": 6926.442202273279,\n      \"collections\": [\n        {\n          \"id\": \"stringstringstringstringstringstring\",\n          \"name\": \"string\",\n          \"count\": 7228,\n          \"create_date\": \"2019-11-06T23:50:39.703Z\",\n          \"modified_date\": \"1972-11-06T08:50:08.094Z\",\n          \"description\": \"string\"\n        },\n        {\n          \"id\": \"stringstringstringstringstringstring\",\n          \"name\": \"string\",\n          \"count\": 652,\n          \"create_date\": \"1952-01-26T02:55:52.427Z\",\n          \"modified_date\": \"1986-10-01T04:43:15.282Z\",\n          \"description\": \"string\"\n        }\n      ],\n      \"name\": \"string\",\n      \"thumbnails\": [\n        {\n          \"id\": \"string\",\n          \"thumbnail\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"thumbnail\": \"string\"\n        }\n      ],\n      \"gender\": \"F\",\n      \"date_of_birth\": \"1967-06-07\",\n      \"nationality\": \"string\",\n      \"notes\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"create_date\": \"1999-08-06T09:38:19.533Z\",\n      \"modified_date\": \"1953-05-09T18:13:04.951Z\",\n      \"score\": 4955.046305944895,\n      \"collections\": [\n        {\n          \"id\": \"stringstringstringstringstringstring\",\n          \"name\": \"string\",\n          \"count\": 9115,\n          \"create_date\": \"2024-02-19T00:01:16.700Z\",\n          \"modified_date\": \"2018-02-03T18:10:35.736Z\",\n          \"description\": \"string\"\n        },\n        {\n          \"id\": \"stringstringstringstringstringstring\",\n          \"name\": \"string\",\n          \"count\": 6897,\n          \"create_date\": \"1974-08-30T21:44:21.427Z\",\n          \"modified_date\": \"1963-06-07T15:22:49.362Z\",\n          \"description\": \"string\"\n        }\n      ],\n      \"name\": \"string\",\n      \"thumbnails\": [\n        {\n          \"id\": \"string\",\n          \"thumbnail\": \"string\"\n        },\n        {\n          \"id\": \"string\",\n          \"thumbnail\": \"string\"\n        }\n      ],\n      \"gender\": \"F\",\n      \"date_of_birth\": \"1950-01-25\",\n      \"nationality\": \"string\",\n      \"notes\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a32d693-5004-4128-987f-6f2905c810be",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search-live-face"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"image\": \"<string>\",\n  \"os\": \"DESKTOP\",\n  \"collection_id\": \"<string>\",\n  \"min_score\": \"<number>\",\n  \"max_results\": \"<integer>\",\n  \"search_mode\": \"ACCURATE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0c08da4e-4259-4531-9497-4eff634aa1f8",
+          "name": "Search From One Or More Images Of Same Person",
+          "request": {
+            "name": "Search From One Or More Images Of Same Person",
+            "description": {},
+            "url": {
+              "path": [
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"images\": [\n    \"<string>\"\n  ],\n  \"collection_id\": \"<string>\",\n  \"max_results\": \"<integer>\",\n  \"min_score\": \"<number>\",\n  \"search_mode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "649508c3-904b-4dcb-8921-0a4367a64792",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"images\": [\n    \"<string>\"\n  ],\n  \"collection_id\": \"<string>\",\n  \"max_results\": \"<integer>\",\n  \"min_score\": \"<number>\",\n  \"search_mode\": \"ACCURATE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"create_date\": \"2023-01-27T10:23:27.761Z\",\n    \"modified_date\": \"1995-08-14T18:19:24.684Z\",\n    \"score\": 7273.951007282779,\n    \"collections\": [\n      {\n        \"id\": \"stringstringstringstringstringstring\",\n        \"name\": \"strin\",\n        \"count\": 6673,\n        \"create_date\": \"1977-10-09T21:42:13.274Z\",\n        \"modified_date\": \"1952-09-15T05:54:11.529Z\",\n        \"description\": \"string\"\n      },\n      {\n        \"id\": \"stringstringstringstringstringstring\",\n        \"name\": \"string\",\n        \"count\": 398,\n        \"create_date\": \"1986-12-18T09:04:15.631Z\",\n        \"modified_date\": \"2017-11-13T14:31:43.961Z\",\n        \"description\": \"string\"\n      }\n    ],\n    \"name\": \"string\",\n    \"thumbnails\": [\n      {\n        \"id\": \"string\",\n        \"thumbnail\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"thumbnail\": \"string\"\n      }\n    ],\n    \"gender\": \"M\",\n    \"date_of_birth\": \"1991-07-27\",\n    \"nationality\": \"string\",\n    \"notes\": \"string\"\n  },\n  {\n    \"id\": \"string\",\n    \"create_date\": \"2004-06-13T22:27:47.741Z\",\n    \"modified_date\": \"2010-10-01T08:38:32.517Z\",\n    \"score\": 8758.45631972192,\n    \"collections\": [\n      {\n        \"id\": \"stringstringstringstringstringstring\",\n        \"name\": \"string\",\n        \"count\": 9858,\n        \"create_date\": \"1984-07-29T06:07:01.690Z\",\n        \"modified_date\": \"1962-09-01T06:59:13.935Z\",\n        \"description\": \"string\"\n      },\n      {\n        \"id\": \"stringstringstringstringstringstring\",\n        \"name\": \"string\",\n        \"count\": 5103,\n        \"create_date\": \"1964-03-18T03:24:28.182Z\",\n        \"modified_date\": \"1999-05-02T07:09:19.723Z\",\n        \"description\": \"string\"\n      }\n    ],\n    \"name\": \"string\",\n    \"thumbnails\": [\n      {\n        \"id\": \"string\",\n        \"thumbnail\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"thumbnail\": \"string\"\n      }\n    ],\n    \"gender\": \"M\",\n    \"date_of_birth\": \"1986-07-19\",\n    \"nationality\": \"string\",\n    \"notes\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "244139fe-6467-4655-92f5-1967fb3a4358",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"images\": [\n    \"<string>\"\n  ],\n  \"collection_id\": \"<string>\",\n  \"max_results\": \"<integer>\",\n  \"min_score\": \"<number>\",\n  \"search_mode\": \"ACCURATE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c2df1c0-c165-4337-b16b-5049b67632bd",
+          "name": "Search From One Or More Crops Of Same Person",
+          "request": {
+            "name": "Search From One Or More Crops Of Same Person",
+            "description": {},
+            "url": {
+              "path": [
+                "search",
+                "crops"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"images\": [\n    \"<string>\"\n  ],\n  \"collection_id\": \"<string>\",\n  \"max_results\": \"<integer>\",\n  \"min_score\": \"<number>\",\n  \"search_mode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "419d4dc4-0531-4566-a24a-2b033baf5158",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "crops"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"images\": [\n    \"<string>\"\n  ],\n  \"collection_id\": \"<string>\",\n  \"max_results\": \"<integer>\",\n  \"min_score\": \"<number>\",\n  \"search_mode\": \"ACCURATE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"strin\",\n    \"create_date\": \"1985-07-23T14:36:32.520Z\",\n    \"modified_date\": \"1953-07-17T00:59:58.477Z\",\n    \"score\": 2490.964986052796,\n    \"collections\": [\n      {\n        \"id\": \"stringstringstringstringstringstring\",\n        \"name\": \"string\",\n        \"count\": 7124,\n        \"create_date\": \"1958-11-01T06:17:35.926Z\",\n        \"modified_date\": \"1980-08-05T08:28:24.558Z\",\n        \"description\": \"string\"\n      },\n      {\n        \"id\": \"stringstringstringstringstringstring\",\n        \"name\": \"string\",\n        \"count\": 7473,\n        \"create_date\": \"2000-08-20T22:15:02.479Z\",\n        \"modified_date\": \"1982-11-04T09:03:22.897Z\",\n        \"description\": \"string\"\n      }\n    ],\n    \"name\": \"string\",\n    \"thumbnails\": [\n      {\n        \"id\": \"string\",\n        \"thumbnail\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"thumbnail\": \"string\"\n      }\n    ],\n    \"gender\": \"M\",\n    \"date_of_birth\": \"1972-05-16\",\n    \"nationality\": \"string\",\n    \"notes\": \"string\"\n  },\n  {\n    \"id\": \"string\",\n    \"create_date\": \"1949-01-09T11:11:38.860Z\",\n    \"modified_date\": \"2014-07-22T07:43:57.143Z\",\n    \"score\": 7899.6974330105895,\n    \"collections\": [\n      {\n        \"id\": \"stringstringstringstringstringstring\",\n        \"name\": \"string\",\n        \"count\": 7534,\n        \"create_date\": \"1956-04-26T22:56:50.282Z\",\n        \"modified_date\": \"1981-03-12T15:55:19.398Z\",\n        \"description\": \"stri\"\n      },\n      {\n        \"id\": \"stringstringstringstringstringstring\",\n        \"name\": \"string\",\n        \"count\": 1481,\n        \"create_date\": \"1967-03-01T01:41:02.894Z\",\n        \"modified_date\": \"2026-08-12T03:47:52.314Z\",\n        \"description\": \"string\"\n      }\n    ],\n    \"name\": \"string\",\n    \"thumbnails\": [\n      {\n        \"id\": \"string\",\n        \"thumbnail\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"thumbnail\": \"string\"\n      }\n    ],\n    \"gender\": \"F\",\n    \"date_of_birth\": \"1969-06-03\",\n    \"nationality\": \"string\",\n    \"notes\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a66cea30-2b9f-4706-bd48-1211cb8335e7",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search",
+                    "crops"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"images\": [\n    \"<string>\"\n  ],\n  \"collection_id\": \"<string>\",\n  \"max_results\": \"<integer>\",\n  \"min_score\": \"<number>\",\n  \"search_mode\": \"ACCURATE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "607d76c5-a69b-4040-8a4b-6aaf6eb521d2",
+          "name": "Detect Faces And Optionally Search For Persons",
+          "request": {
+            "name": "Detect Faces And Optionally Search For Persons",
+            "description": {},
+            "url": {
+              "path": [
+                "detect"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"image\": \"<string>\",\n  \"search\": {\n    \"collection_id\": \"<string>\",\n    \"max_results\": \"<integer>\",\n    \"min_score\": \"<number>\",\n    \"search_mode\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7ff6c376-4b8c-4468-9cd4-c03a09c6870c",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "detect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"image\": \"<string>\",\n  \"search\": {\n    \"collection_id\": \"stringstringstringstringstringstring\",\n    \"max_results\": 7,\n    \"min_score\": 0.22719616941760268,\n    \"search_mode\": \"FAST\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"box\": {\n      \"left\": 1732,\n      \"top\": 3970,\n      \"right\": 4407,\n      \"bottom\": 431\n    },\n    \"landmarks\": {\n      \"left_eye\": [\n        2553,\n        1267\n      ],\n      \"right_eye\": [\n        2550,\n        7632\n      ],\n      \"nose\": [\n        1752,\n        8415\n      ],\n      \"left_mouth\": [\n        6379,\n        167\n      ],\n      \"right_mouth\": [\n        9730,\n        1342\n      ]\n    },\n    \"detection_score\": 4850.930508278026,\n    \"thumbnail\": \"string\",\n    \"persons\": [\n      {\n        \"id\": \"string\",\n        \"create_date\": \"1960-12-31T04:32:54.129Z\",\n        \"modified_date\": \"1959-11-14T07:34:36.189Z\",\n        \"score\": 6017.20584430026,\n        \"collections\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"count\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"create_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"modified_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"count\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"create_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"modified_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"name\": \"string\",\n        \"thumbnails\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"thumbnail\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"thumbnail\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"gender\": \"M\",\n        \"date_of_birth\": \"1998-11-16\",\n        \"nationality\": \"string\",\n        \"notes\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"create_date\": \"2007-11-14T13:13:17.885Z\",\n        \"modified_date\": \"1972-07-23T11:33:11.740Z\",\n        \"score\": 4241.323199855555,\n        \"collections\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"count\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"create_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"modified_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"count\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"create_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"modified_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"name\": \"string\",\n        \"thumbnails\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"thumbnail\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"thumbnail\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"gender\": \"F\",\n        \"date_of_birth\": \"2025-07-20\",\n        \"nationality\": \"string\",\n        \"notes\": \"string\"\n      }\n    ]\n  },\n  {\n    \"box\": {\n      \"left\": 7894,\n      \"top\": 6245,\n      \"right\": 3640,\n      \"bottom\": 5013\n    },\n    \"landmarks\": {\n      \"left_eye\": [\n        8750,\n        1978\n      ],\n      \"right_eye\": [\n        7113,\n        8940\n      ],\n      \"nose\": [\n        2804,\n        9831\n      ],\n      \"left_mouth\": [\n        7313,\n        7555\n      ],\n      \"right_mouth\": [\n        2428,\n        4177\n      ]\n    },\n    \"detection_score\": 5744.6135849992315,\n    \"thumbnail\": \"string\",\n    \"persons\": [\n      {\n        \"id\": \"string\",\n        \"create_date\": \"1955-03-24T01:35:37.081Z\",\n        \"modified_date\": \"1956-08-17T15:43:38.433Z\",\n        \"score\": 106.58664310928434,\n        \"collections\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"count\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"create_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"modified_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"count\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"create_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"modified_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"name\": \"string\",\n        \"thumbnails\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"thumbnail\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"thumbnail\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"gender\": \"M\",\n        \"date_of_birth\": \"1997-02-15\",\n        \"nationality\": \"string\",\n        \"notes\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"create_date\": \"1955-09-17T18:08:05.323Z\",\n        \"modified_date\": \"1975-08-25T01:02:42.472Z\",\n        \"score\": 1510.3117339541107,\n        \"collections\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"count\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"create_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"modified_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"count\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"create_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"modified_date\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"name\": \"string\",\n        \"thumbnails\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"thumbnail\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"thumbnail\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"gender\": \"F\",\n        \"date_of_birth\": \"1985-08-27\",\n        \"nationality\": \"string\",\n        \"notes\": \"string\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "726cc387-0b61-4cda-bbcf-9838ba6a8bf5",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "detect"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"image\": \"<string>\",\n  \"search\": {\n    \"collection_id\": \"stringstringstringstringstringstring\",\n    \"max_results\": 7,\n    \"min_score\": 0.22719616941760268,\n    \"search_mode\": \"FAST\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d626384-6e6c-44bf-8be8-e84611f30fa6",
+          "name": "Verify Match From One Or More Images Of Same Person",
+          "request": {
+            "name": "Verify Match From One Or More Images Of Same Person",
+            "description": {},
+            "url": {
+              "path": [
+                "verify"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"images\": [\n    \"<string>\"\n  ],\n  \"min_score\": \"<number>\",\n  \"verification_mode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5b79de25-d38d-4763-8a99-3675b92008cf",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "verify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"images\": [\n    \"<string>\"\n  ],\n  \"min_score\": \"<number>\",\n  \"verification_mode\": \"FAST\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"match\": {\n    \"id\": \"string\",\n    \"create_date\": \"1949-09-26T17:58:44.417Z\",\n    \"modified_date\": \"1986-01-25T08:51:17.155Z\",\n    \"score\": 8076.397715404613,\n    \"collections\": [\n      {\n        \"id\": \"stringstringstringstringstringstring\",\n        \"name\": \"string\",\n        \"count\": 8113,\n        \"create_date\": \"1994-07-17T08:02:25.467Z\",\n        \"modified_date\": \"1968-06-08T20:05:32.921Z\",\n        \"description\": \"string\"\n      },\n      {\n        \"id\": \"stringstringstringstringstringstring\",\n        \"name\": \"string\",\n        \"count\": 2821,\n        \"create_date\": \"1952-05-08T14:06:37.767Z\",\n        \"modified_date\": \"1997-12-14T12:38:58.286Z\",\n        \"description\": \"string\"\n      }\n    ],\n    \"name\": \"string\",\n    \"thumbnails\": [\n      {\n        \"id\": \"string\",\n        \"thumbnail\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"thumbnail\": \"string\"\n      }\n    ],\n    \"gender\": \"F\",\n    \"date_of_birth\": \"1966-07-10\",\n    \"nationality\": \"string\",\n    \"notes\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0b518f2-a177-40cb-aa75-64fae779577b",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "verify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"images\": [\n    \"<string>\"\n  ],\n  \"min_score\": \"<number>\",\n  \"verification_mode\": \"FAST\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "61d1045f-835b-40eb-923b-60eead5c1a7c",
+          "name": "Count Heads",
+          "request": {
+            "name": "Count Heads",
+            "description": {},
+            "url": {
+              "path": [
+                "head-count"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"image\": \"<string>\",\n  \"confidence\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f9f68966-8715-43c7-a9f6-00e59dc70e38",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "head-count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"confidence\": 75,\n  \"image\": \"base64_encoded_string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 4403\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48a781c9-00da-402a-9160-1eb51b3c971f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "head-count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"confidence\": 75,\n  \"image\": \"base64_encoded_string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "aa575087-b43c-4e76-96fe-b53587a77e47",
+    "name": "OpenCV Face Recognition Collections Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nOpenCV Face Recognition allows you to either **manually** (through our [Developer Portal](https://developer.opencv.fr) UI) or **programmatically** (through our SDKs or REST API) detect, recognize, and verify faces in images. It is based on state-of-the-art (SOTA) algorithms and uses deep learning face recognition models. The API is designed to be easy to use and integrate into your applications. It is available as this hosted service or you can deploy it yourself on your own servers.\n\nThere are four ways that you can use the product:\n- Using the [Face Recognition Developer Portal](https://developer.opencv.fr) User Interface to manage your **Developer** teams, **Persons** who are registered for the search API to recognize, and **Collections** - groups of persons.\n- Using the [Python Face Recognition SDK](https://docs.opencv.fr/python) to integrate the API into your Python applications.\n- Using the [C++ Face Recognition SDK](https://docs.opencv.fr/cpp) to integrate the API into your C++ applications.\n- Using the REST API (below) to integrate the API functionality into your applications in other languages.\n\nTo use the REST API described below, you will need to create an account and obtain an API key. You can do this by signing up for a free account at [Face Recognition Developer Portal](https://developer.opencv.fr).\n\nOnce you have signed up, you will see an **API Developer Key** in the Dashboard. This is the key that you will use to authenticate your requests to the API. You can also create additional Developers (each with their own key) for your applications.\n\nTo use the API, you will need to send the API key in the `X-API-Key` header of each request. For example, using `curl`:\n```\ncurl -X GET \"https://<region>.opencv.fr/persons\" -H \"accept: application/json\" -H \"X-API-Key: <your API key>\"\n```\n\n`<region>` is the data storage region that you selected when you created your account. It can be `us`, `eu`, or `sg`.\n\nTo help you try out the functionality quickly, the below live docs include a **Try it out** button for each endpoint. This will allow you to send a request to the API and see the response. Before you can use this, you will need to grab your API key from the Dashboard and enter it into the field that shows up when you click the green **Authorize** button (below this line on the right).\n",
+      "type": "text/plain"
+    }
+  }
+}

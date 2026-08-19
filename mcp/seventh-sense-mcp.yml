@@ -1,14 +1,11 @@
 generated: '2026-07-21'
 method: derived
 status: candidate
-source: >-
-  No official hosted or local MCP server was found for OpenCV Face Recognition
-  (Seventh Sense) in the docs, GitHub, or the MCP registry as of the generated
-  date. This is a CANDIDATE tool surface DERIVED from the operations in
-  openapi/seventh-sense-opencv-fr-openapi.json — it is not an official product.
-description: >-
-  Candidate MCP tool surface mapped from the OpenCV FR REST API operations,
-  suitable for wrapping the API (x-api-key auth) as agent tools.
+source: No official hosted or local MCP server was found for OpenCV Face Recognition (Seventh Sense) in
+  the docs, GitHub, or the MCP registry as of the generated date. This is a CANDIDATE tool surface DERIVED
+  from the operations in openapi/seventh-sense-opencv-fr-openapi.json — it is not an official product.
+description: Candidate MCP tool surface mapped from the OpenCV FR REST API operations, suitable for wrapping
+  the API (x-api-key auth) as agent tools.
 server:
   name: opencv-fr
   transport: null
@@ -16,33 +13,39 @@ server:
   auth: apiKey (x-api-key)
   official: false
 tools:
-  - name: check_liveness
-    operationId: check_liveness_for_a_single_image_liveness_post
-    description: Determine whether a single face image is a live person or a spoof.
-  - name: compare_faces
-    operationId: compare_two_lists_of_images_of_same_person_compare_post
-    description: Compare two sets of face images and return a similarity score.
-  - name: detect_faces
-    operationId: detect_faces_and_optionally_search_for_persons_detect_post
-    description: Detect faces (boxes + landmarks) in an image and optionally search for matching persons.
-  - name: search_faces
-    operationId: search_from_one_or_more_images_of_same_person_search_post
-    description: Search registered persons using one or more face images.
-  - name: verify_person
-    operationId: verify_match_from_one_or_more_images_of_same_person_verify_post
-    description: Verify that face images match a specified registered person.
-  - name: head_count
-    operationId: count_heads_head_count_post
-    description: Count the number of heads/faces in an image.
-  - name: create_person
-    operationId: create_person_person_post
-    description: Register a new person with face images.
-  - name: create_collection
-    operationId: create_collection_collection_post
-    description: Create a collection to group registered persons.
-  - name: list_persons
-    operationId: get_persons_persons_get
-    description: List registered persons with pagination and search.
-  - name: list_collections
-    operationId: get_collections_collections_get
-    description: List collections.
+- name: check_liveness
+  operationId: check_liveness_for_a_single_image_liveness_post
+  description: Determine whether a single face image is a live person or a spoof.
+- name: compare_faces
+  operationId: compare_two_lists_of_images_of_same_person_compare_post
+  description: Compare two sets of face images and return a similarity score.
+- name: detect_faces
+  operationId: detect_faces_and_optionally_search_for_persons_detect_post
+  description: Detect faces (boxes + landmarks) in an image and optionally search for matching persons.
+- name: search_faces
+  operationId: search_from_one_or_more_images_of_same_person_search_post
+  description: Search registered persons using one or more face images.
+- name: verify_person
+  operationId: verify_match_from_one_or_more_images_of_same_person_verify_post
+  description: Verify that face images match a specified registered person.
+- name: head_count
+  operationId: count_heads_head_count_post
+  description: Count the number of heads/faces in an image.
+- name: create_person
+  operationId: create_person_person_post
+  description: Register a new person with face images.
+- name: create_collection
+  operationId: create_collection_collection_post
+  description: Create a collection to group registered persons.
+- name: list_persons
+  operationId: get_persons_persons_get
+  description: List registered persons with pagination and search.
+- name: list_collections
+  operationId: get_collections_collections_get
+  description: List collections.
+deployment:
+  mode: none
+  verified: derived
+  tools: 10
+  checked: '2026-08-12'
+  source: catalog MCP census

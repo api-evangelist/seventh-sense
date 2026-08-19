@@ -1,0 +1,195 @@
+{
+  "item": [
+    {
+      "id": "bae8aea8-4a9c-4973-aa2d-f2457a81b593",
+      "name": "Face Anti-Spoofing / Liveness",
+      "description": {
+        "content": "The `/liveness` endpoint allows you to determine if a face image is of a real person or a spoofed image (eg. a printed image of a face, or an image captured from a tablet's screen). The endpoint returns a score between 0 and 1, where 1 is a real person and 0 is a spoofed image, the threshold for the image to be considered live is >= 0.5.<br/><br/> Our liveness achieved Attack Presentation Classification Error Rate (APCER) of 0% and reached iBeta Level 2 compliance in accordance with ISO 30107-3. <br/><br/>**Note:** The `/liveness` endpoint does not store any information on our servers. It is a one-time classification of an image using a deep learning model. If you want to store the images and search for them later, use the `/person` endpoint to register persons for a later search using the `/search` endpoint.<br/><br/>To ensure fraudsters cannot use high-resolution print outs, masks or video playbacks to spoof face recognition systems, liveness image has a higher requirement on image:<br/><br/>Liveness image requirement:<br/> <ul> <li>There should only be one main face on the image. It should be fully visible within a frame and fully open without any occlusions. No crop is allowed. Small faces in the background are not taken into account.</li> <li>The minimum size of a face box that can be processed is 224x224 pixels.</li> <li>The padding between the face box and the image's borders should be at least 25 pixels.</li> <li>The distance between the pupils on the face should be at least 80 pixels.</li> <li>The out-of-plane rotation angle (face pitch and yaw) should be no more than ±30 degrees.</li> <li>Fish-eye lenses and sunglass images are not supported.</li> </ul>",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a5af9198-0d43-4b93-a627-751abc2161e0",
+          "name": "Check Liveness For A Single Image",
+          "request": {
+            "name": "Check Liveness For A Single Image",
+            "description": {},
+            "url": {
+              "path": [
+                "liveness"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"image\": \"<string>\",\n  \"os\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a799069f-90cd-4eb8-b9c5-a1d8945df512",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "liveness"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"image\": \"base64_encoded_string\",\n  \"os\": \"DESKTOP\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"liveness_score\": 4729.0365110083185\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9be6fa29-9033-41ee-acd7-6a3618d2d843",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "liveness"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"image\": \"base64_encoded_string\",\n  \"os\": \"DESKTOP\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c900eafb-3c13-4e69-8883-8f55268cc758",
+    "name": "OpenCV Face Recognition Collections Face Anti-Spoofing / Liveness API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nOpenCV Face Recognition allows you to either **manually** (through our [Developer Portal](https://developer.opencv.fr) UI) or **programmatically** (through our SDKs or REST API) detect, recognize, and verify faces in images. It is based on state-of-the-art (SOTA) algorithms and uses deep learning face recognition models. The API is designed to be easy to use and integrate into your applications. It is available as this hosted service or you can deploy it yourself on your own servers.\n\nThere are four ways that you can use the product:\n- Using the [Face Recognition Developer Portal](https://developer.opencv.fr) User Interface to manage your **Developer** teams, **Persons** who are registered for the search API to recognize, and **Collections** - groups of persons.\n- Using the [Python Face Recognition SDK](https://docs.opencv.fr/python) to integrate the API into your Python applications.\n- Using the [C++ Face Recognition SDK](https://docs.opencv.fr/cpp) to integrate the API into your C++ applications.\n- Using the REST API (below) to integrate the API functionality into your applications in other languages.\n\nTo use the REST API described below, you will need to create an account and obtain an API key. You can do this by signing up for a free account at [Face Recognition Developer Portal](https://developer.opencv.fr).\n\nOnce you have signed up, you will see an **API Developer Key** in the Dashboard. This is the key that you will use to authenticate your requests to the API. You can also create additional Developers (each with their own key) for your applications.\n\nTo use the API, you will need to send the API key in the `X-API-Key` header of each request. For example, using `curl`:\n```\ncurl -X GET \"https://<region>.opencv.fr/persons\" -H \"accept: application/json\" -H \"X-API-Key: <your API key>\"\n```\n\n`<region>` is the data storage region that you selected when you created your account. It can be `us`, `eu`, or `sg`.\n\nTo help you try out the functionality quickly, the below live docs include a **Try it out** button for each endpoint. This will allow you to send a request to the API and see the response. Before you can use this, you will need to grab your API key from the Dashboard and enter it into the field that shows up when you click the green **Authorize** button (below this line on the right).\n",
+      "type": "text/plain"
+    }
+  }
+}
