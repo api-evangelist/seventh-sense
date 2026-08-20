@@ -39,6 +39,15 @@ tags:
 - Identity Verification
 - Liveness Detection
 - Artificial Intelligence
+- Computer-Vision
+- Security
+tags_raw:
+- Company
+- Face Recognition
+- Biometrics
+- Identity Verification
+- Liveness Detection
+- Artificial Intelligence
 - Computer Vision
 - Security
 apis:
@@ -52,6 +61,8 @@ apis:
   humanURL: https://us.opencv.fr/docs
   baseURL: https://us.opencv.fr
   tags:
+  - Collection
+  tags_raw:
   - Collections
   properties:
   - type: OpenAPI
