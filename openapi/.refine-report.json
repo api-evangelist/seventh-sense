@@ -1,11 +1,7 @@
 {
   "provider": "seventh-sense",
   "sources": [
-    "seventh-sense-collections-api-openapi.yml",
-    "seventh-sense-face-anti-spoofing-liveness-api-openapi.yml",
-    "seventh-sense-face-verification-api-openapi.yml",
-    "seventh-sense-persons-api-openapi.yml",
-    "seventh-sense-search-api-openapi.yml"
+    "_original/seventh-sense-opencv-fr-openapi.json"
   ],
   "outputs": [
     "seventh-sense-collections-api-openapi.yml",
@@ -17,6 +13,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "seventh-sense-opencv-fr-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "seventh-sense-collections-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "seventh-sense-face-anti-spoofing-liveness-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "seventh-sense-face-verification-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "seventh-sense-persons-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "seventh-sense-search-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

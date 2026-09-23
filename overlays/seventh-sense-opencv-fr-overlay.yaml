@@ -3,9 +3,9 @@ info:
   title: API Evangelist enhancements for OpenCV Face Recognition API
   version: 1.0.0
 extends: openapi/seventh-sense-opencv-fr-openapi.json
-generated: '2026-07-21'
-method: generated
-source: openapi/seventh-sense-opencv-fr-openapi.json
+x-generated: '2026-07-21'
+x-method: generated
+x-source: openapi/seventh-sense-opencv-fr-openapi.json
 actions:
 - target: $.info
   update:

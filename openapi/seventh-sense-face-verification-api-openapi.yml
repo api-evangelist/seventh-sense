@@ -1,47 +1,11 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: OpenCV Face Recognition Collections Face Verification API
-  description: '
-
-    OpenCV Face Recognition allows you to either **manually** (through our [Developer Portal](https://developer.opencv.fr) UI) or **programmatically** (through our SDKs or REST API) detect, recognize, and verify faces in images. It is based on state-of-the-art (SOTA) algorithms and uses deep learning face recognition models. The API is designed to be easy to use and integrate into your applications. It is available as this hosted service or you can deploy it yourself on your own servers.
-
-
-    There are four ways that you can use the product:
-
-    - Using the [Face Recognition Developer Portal](https://developer.opencv.fr) User Interface to manage your **Developer** teams, **Persons** who are registered for the search API to recognize, and **Collections** - groups of persons.
-
-    - Using the [Python Face Recognition SDK](https://docs.opencv.fr/python) to integrate the API into your Python applications.
-
-    - Using the [C++ Face Recognition SDK](https://docs.opencv.fr/cpp) to integrate the API into your C++ applications.
-
-    - Using the REST API (below) to integrate the API functionality into your applications in other languages.
-
-
-    To use the REST API described below, you will need to create an account and obtain an API key. You can do this by signing up for a free account at [Face Recognition Developer Portal](https://developer.opencv.fr).
-
-
-    Once you have signed up, you will see an **API Developer Key** in the Dashboard. This is the key that you will use to authenticate your requests to the API. You can also create additional Developers (each with their own key) for your applications.
-
-
-    To use the API, you will need to send the API key in the `X-API-Key` header of each request. For example, using `curl`:
-
-    ```
-
-    curl -X GET "https://<region>.opencv.fr/persons" -H "accept: application/json" -H "X-API-Key: <your API key>"
-
-    ```
-
-
-    `<region>` is the data storage region that you selected when you created your account. It can be `us`, `eu`, or `sg`.
-
-
-    To help you try out the functionality quickly, the below live docs include a **Try it out** button for each endpoint. This will allow you to send a request to the API and see the response. Before you can use this, you will need to grab your API key from the Dashboard and enter it into the field that shows up when you click the green **Authorize** button (below this line on the right).
-
-    '
+  title: OpenCV Face Recognition Face Verification API
+  description: OpenCV Face Recognition allows you to either **manually** (through our Developer Portal UI) or **programmatically** (through our SDKs or REST API) detect, recognize, and verify faces in images.
   version: 2026.07.15.0759
 tags:
 - name: Face Verification
-  description: The `/compare` endpoint allows you to compare two sets of face images to determine if they correspond to the same person. A score higher than 0.81 is a good indicator that the two sets of images belong to the same person. You can also use a score of 0.75 or higher if the images are of the same person but taken at different times (years apart). The score is a number between 0 and 1, where 1 is a perfect match and 0 is a perfect mismatch. The score is calculated using a deep learning model trained on millions of face images. <br/><br/>**Note:** The `/compare` endpoint does not store any information on our servers. It is a one-time comparison of two sets of images. If you want to store the images and search for them later, use the `/person` endpoints to manage persons for a later search using the `/search` endpoint.
+  description: The `/compare` endpoint allows you to compare two sets of face images to determine if they correspond to the same person.
 paths:
   /compare:
     post:
@@ -99,12 +63,6 @@ paths:
       - APIKeyHeader: []
 components:
   schemas:
-    SearchModeEnum:
-      type: string
-      enum:
-      - ACCURATE
-      - FAST
-      title: SearchModeEnum
     ValidationError:
       properties:
         loc:
@@ -126,28 +84,6 @@ components:
       - msg
       - type
       title: ValidationError
-    ScoreLiveFaceSchema:
-      properties:
-        score:
-          type: number
-          title: Score
-        liveness_score:
-          type: string
-          title: Liveness Score
-      type: object
-      required:
-      - score
-      - liveness_score
-      title: ScoreLiveFaceSchema
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     CompareLiveFaceSchema:
       properties:
         probe:
@@ -200,6 +136,15 @@ components:
       required:
       - score
       title: ScoreSchema
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     OSEnum:
       type: string
       enum:
@@ -207,6 +152,25 @@ components:
       - ANDROID
       - IOS
       title: OSEnum
+    SearchModeEnum:
+      type: string
+      enum:
+      - ACCURATE
+      - FAST
+      title: SearchModeEnum
+    ScoreLiveFaceSchema:
+      properties:
+        score:
+          type: number
+          title: Score
+        liveness_score:
+          type: string
+          title: Liveness Score
+      type: object
+      required:
+      - score
+      - liveness_score
+      title: ScoreLiveFaceSchema
     CompareSchema:
       properties:
         probe:
