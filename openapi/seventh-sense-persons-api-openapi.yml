@@ -386,259 +386,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ActionEnum:
-      type: string
-      const: DELETE
-      title: ActionEnum
-    DeletedItemSchema:
-      properties:
-        id:
-          type: string
-          title: Id
-      type: object
-      title: DeletedItemSchema
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    CreateImageResponseSchema:
-      properties:
-        id:
-          type: string
-          title: Id
-        person_id:
-          type: string
-          title: Person Id
-        thumbnail:
-          type: string
-          title: Thumbnail
-      type: object
-      required:
-      - id
-      - person_id
-      - thumbnail
-      title: CreateImageResponseSchema
-    CreateImagesSchema:
-      properties:
-        person_id:
-          type: string
-          maxLength: 100
-          minLength: 1
-          title: Person Id
-        images:
-          items:
-            type: string
-          type: array
-          maxItems: 3
-          minItems: 1
-          title: Images
-      type: object
-      required:
-      - person_id
-      - images
-      title: CreateImagesSchema
-      example:
-        images:
-        - base64_encoded_string
-        person_id: string
-    ListPersonsSchema:
-      properties:
-        count:
-          type: integer
-          title: Count
-        persons:
-          items:
-            $ref: '#/components/schemas/PersonSchema'
-          type: array
-          title: Persons
-      type: object
-      required:
-      - count
-      - persons
-      title: ListPersonsSchema
-    UpdatePersonSchema:
-      properties:
-        id:
-          type: string
-          maxLength: 100
-          minLength: 1
-          title: Id
-        name:
-          anyOf:
-          - type: string
-            maxLength: 100
-            minLength: 1
-          - type: 'null'
-          title: Name
-        images:
-          anyOf:
-          - items:
-              type: string
-            type: array
-            maxItems: 3
-            minItems: 1
-          - type: 'null'
-          title: Images
-        gender:
-          anyOf:
-          - $ref: '#/components/schemas/GenderEnum'
-          - type: 'null'
-        date_of_birth:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Date Of Birth
-        nationality:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Nationality
-        collections:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Collections
-        notes:
-          anyOf:
-          - type: string
-            maxLength: 500
-            minLength: 0
-          - type: 'null'
-          title: Notes
-      type: object
-      required:
-      - id
-      title: UpdatePersonSchema
-      example:
-        collections:
-        - string
-        date_of_birth: '2026-07-21'
-        gender: M
-        id: string
-        images:
-        - base64_encoded_string
-        name: string
-        nationality: string
-        notes: string
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    OrderEnum:
-      type: string
-      enum:
-      - ASC
-      - DESC
-      title: OrderEnum
-    PersonsOrderByEnum:
-      type: string
-      enum:
-      - name
-      - date_of_birth
-      - gender
-      - nationality
-      - modified_date
-      - create_date
-      title: PersonsOrderByEnum
-    CreatePersonSchema:
-      properties:
-        id:
-          anyOf:
-          - type: string
-            maxLength: 100
-            minLength: 1
-          - type: 'null'
-          title: Id
-        name:
-          anyOf:
-          - type: string
-            maxLength: 100
-            minLength: 1
-          - type: 'null'
-          title: Name
-        images:
-          items:
-            type: string
-          type: array
-          maxItems: 3
-          minItems: 1
-          title: Images
-        gender:
-          anyOf:
-          - $ref: '#/components/schemas/GenderEnum'
-          - type: 'null'
-        date_of_birth:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Date Of Birth
-        nationality:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Nationality
-        collections:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Collections
-        notes:
-          anyOf:
-          - type: string
-            maxLength: 500
-            minLength: 0
-          - type: 'null'
-          title: Notes
-        is_bulk_insert:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Bulk Insert
-          default: false
-      type: object
-      required:
-      - images
-      title: CreatePersonSchema
-      example:
-        collections:
-        - string
-        date_of_birth: '2026-07-21'
-        gender: M
-        id: string
-        images:
-        - base64_encoded_string
-        is_bulk_insert: false
-        name: string
-        nationality: string
-        notes: string
     PersonSchema:
       properties:
         id:
@@ -700,33 +447,73 @@ components:
       - create_date
       - modified_date
       title: PersonSchema
-    DeletePersonsSchema:
+    GenderEnum:
+      type: string
+      enum:
+      - M
+      - F
+      title: GenderEnum
+    ValidationError:
       properties:
-        action:
-          $ref: '#/components/schemas/ActionEnum'
-        person_ids:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CreateImagesSchema:
+      properties:
+        person_id:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Person Id
+        images:
           items:
             type: string
           type: array
+          maxItems: 3
           minItems: 1
-          title: Person Ids
+          title: Images
       type: object
       required:
-      - action
-      - person_ids
-      title: DeletePersonsSchema
-    ThumbnailSchema:
+      - person_id
+      - images
+      title: CreateImagesSchema
+      example:
+        images:
+        - base64_encoded_string
+        person_id: string
+    CreateImageResponseSchema:
       properties:
         id:
           type: string
           title: Id
+        person_id:
+          type: string
+          title: Person Id
         thumbnail:
           type: string
           title: Thumbnail
       type: object
       required:
       - id
-      title: ThumbnailSchema
+      - person_id
+      - thumbnail
+      title: CreateImageResponseSchema
     UpdatePersonAndImagesSchema:
       properties:
         id:
@@ -804,12 +591,92 @@ components:
         notes: string
         removed_thumbnail_ids:
         - string
-    GenderEnum:
-      type: string
-      enum:
-      - M
-      - F
-      title: GenderEnum
+    CreatePersonSchema:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            maxLength: 100
+            minLength: 1
+          - type: 'null'
+          title: Id
+        name:
+          anyOf:
+          - type: string
+            maxLength: 100
+            minLength: 1
+          - type: 'null'
+          title: Name
+        images:
+          items:
+            type: string
+          type: array
+          maxItems: 3
+          minItems: 1
+          title: Images
+        gender:
+          anyOf:
+          - $ref: '#/components/schemas/GenderEnum'
+          - type: 'null'
+        date_of_birth:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Date Of Birth
+        nationality:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Nationality
+        collections:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Collections
+        notes:
+          anyOf:
+          - type: string
+            maxLength: 500
+            minLength: 0
+          - type: 'null'
+          title: Notes
+        is_bulk_insert:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Bulk Insert
+          default: false
+      type: object
+      required:
+      - images
+      title: CreatePersonSchema
+      example:
+        collections:
+        - string
+        date_of_birth: '2026-07-21'
+        gender: M
+        id: string
+        images:
+        - base64_encoded_string
+        is_bulk_insert: false
+        name: string
+        nationality: string
+        notes: string
+    ThumbnailSchema:
+      properties:
+        id:
+          type: string
+          title: Id
+        thumbnail:
+          type: string
+          title: Thumbnail
+      type: object
+      required:
+      - id
+      title: ThumbnailSchema
     CollectionSchema:
       properties:
         id:
@@ -848,6 +715,139 @@ components:
       - create_date
       - modified_date
       title: CollectionSchema
+    DeletedItemSchema:
+      properties:
+        id:
+          type: string
+          title: Id
+      type: object
+      title: DeletedItemSchema
+    ActionEnum:
+      type: string
+      const: DELETE
+      title: ActionEnum
+    DeletePersonsSchema:
+      properties:
+        action:
+          $ref: '#/components/schemas/ActionEnum'
+        person_ids:
+          items:
+            type: string
+          type: array
+          minItems: 1
+          title: Person Ids
+      type: object
+      required:
+      - action
+      - person_ids
+      title: DeletePersonsSchema
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    PersonsOrderByEnum:
+      type: string
+      enum:
+      - name
+      - date_of_birth
+      - gender
+      - nationality
+      - modified_date
+      - create_date
+      title: PersonsOrderByEnum
+    OrderEnum:
+      type: string
+      enum:
+      - ASC
+      - DESC
+      title: OrderEnum
+    UpdatePersonSchema:
+      properties:
+        id:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Id
+        name:
+          anyOf:
+          - type: string
+            maxLength: 100
+            minLength: 1
+          - type: 'null'
+          title: Name
+        images:
+          anyOf:
+          - items:
+              type: string
+            type: array
+            maxItems: 3
+            minItems: 1
+          - type: 'null'
+          title: Images
+        gender:
+          anyOf:
+          - $ref: '#/components/schemas/GenderEnum'
+          - type: 'null'
+        date_of_birth:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Date Of Birth
+        nationality:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Nationality
+        collections:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Collections
+        notes:
+          anyOf:
+          - type: string
+            maxLength: 500
+            minLength: 0
+          - type: 'null'
+          title: Notes
+      type: object
+      required:
+      - id
+      title: UpdatePersonSchema
+      example:
+        collections:
+        - string
+        date_of_birth: '2026-07-21'
+        gender: M
+        id: string
+        images:
+        - base64_encoded_string
+        name: string
+        nationality: string
+        notes: string
+    ListPersonsSchema:
+      properties:
+        count:
+          type: integer
+          title: Count
+        persons:
+          items:
+            $ref: '#/components/schemas/PersonSchema'
+          type: array
+          title: Persons
+      type: object
+      required:
+      - count
+      - persons
+      title: ListPersonsSchema
   securitySchemes:
     APIKeyHeader:
       type: apiKey

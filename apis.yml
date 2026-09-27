@@ -52,7 +52,7 @@ tags:
 - Identity Verification
 - Liveness Detection
 - Artificial Intelligence
-- Computer-Vision
+- Computer Vision
 - Security
 tags_raw:
 - Company
@@ -63,6 +63,7 @@ tags_raw:
 - Artificial Intelligence
 - Computer Vision
 - Security
+- Computer-Vision
 apis:
 - aid: seventh-sense:seventh-sense-collections-api
   name: Seventh Sense Collections API

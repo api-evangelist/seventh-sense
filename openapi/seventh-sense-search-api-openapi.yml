@@ -180,79 +180,12 @@ paths:
       - APIKeyHeader: []
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    HeadCountRequest:
-      properties:
-        image:
-          type: string
-          title: Image
-        confidence:
-          anyOf:
-          - type: integer
-            maximum: 99.0
-            minimum: 1.0
-          - type: 'null'
-          title: Confidence
-          default: 75
-      type: object
-      required:
-      - image
-      title: HeadCountRequest
-      example:
-        confidence: 75
-        image: base64_encoded_string
     GenderEnum:
       type: string
       enum:
       - M
       - F
       title: GenderEnum
-    VerifyPersonSchema:
-      properties:
-        id:
-          type: string
-          maxLength: 100
-          minLength: 1
-          title: Id
-        images:
-          items:
-            type: string
-          type: array
-          minItems: 1
-          title: Images
-        min_score:
-          anyOf:
-          - type: number
-            maximum: 1.0
-            minimum: 0.0
-          - type: string
-          - type: 'null'
-          title: Min Score
-          default: 0.81
-        verification_mode:
-          anyOf:
-          - $ref: '#/components/schemas/SearchModeEnum'
-          - type: 'null'
-          default: ACCURATE
-      type: object
-      required:
-      - id
-      - images
-      title: VerifyPersonSchema
-      example:
-        id: ID_OF_PERSON_BEING_VERIFIED
-        images:
-        - base64_encoded_string
-        min_score: 0.81
-        verification_mode: FAST/ACCURATE choose one
     SearchPersonSchema:
       properties:
         collection_id:
@@ -302,6 +235,27 @@ components:
         max_results: 10
         min_score: 0.81
         search_mode: FAST/ACCURATE choose one
+    DetectionBoxSchema:
+      properties:
+        left:
+          type: integer
+          title: Left
+        top:
+          type: integer
+          title: Top
+        right:
+          type: integer
+          title: Right
+        bottom:
+          type: integer
+          title: Bottom
+      type: object
+      required:
+      - left
+      - top
+      - right
+      - bottom
+      title: DetectionBoxSchema
     DetectionSearchSchema:
       properties:
         collection_id:
@@ -340,14 +294,6 @@ components:
         max_results: 10
         min_score: 0.81
         search_mode: FAST/ACCURATE choose one
-    VerifyPersonResultSchema:
-      properties:
-        match:
-          anyOf:
-          - $ref: '#/components/schemas/SearchPersonResultSchema'
-          - type: 'null'
-      type: object
-      title: VerifyPersonResultSchema
     SearchPersonResultSchema:
       properties:
         id:
@@ -413,6 +359,167 @@ components:
       - score
       - collections
       title: SearchPersonResultSchema
+    VerifyPersonSchema:
+      properties:
+        id:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Id
+        images:
+          items:
+            type: string
+          type: array
+          minItems: 1
+          title: Images
+        min_score:
+          anyOf:
+          - type: number
+            maximum: 1.0
+            minimum: 0.0
+          - type: string
+          - type: 'null'
+          title: Min Score
+          default: 0.81
+        verification_mode:
+          anyOf:
+          - $ref: '#/components/schemas/SearchModeEnum'
+          - type: 'null'
+          default: ACCURATE
+      type: object
+      required:
+      - id
+      - images
+      title: VerifyPersonSchema
+      example:
+        id: ID_OF_PERSON_BEING_VERIFIED
+        images:
+        - base64_encoded_string
+        min_score: 0.81
+        verification_mode: FAST/ACCURATE choose one
+    DetectionSchema:
+      properties:
+        box:
+          $ref: '#/components/schemas/DetectionBoxSchema'
+        landmarks:
+          $ref: '#/components/schemas/DetectionLandmarksSchema'
+        detection_score:
+          type: number
+          title: Detection Score
+        thumbnail:
+          type: string
+          title: Thumbnail
+        persons:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/SearchPersonResultSchema'
+            type: array
+          - type: 'null'
+          title: Persons
+      type: object
+      required:
+      - box
+      - landmarks
+      - detection_score
+      - thumbnail
+      title: DetectionSchema
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SearchModeEnum:
+      type: string
+      enum:
+      - ACCURATE
+      - FAST
+      title: SearchModeEnum
+    ThumbnailSchema:
+      properties:
+        id:
+          type: string
+          title: Id
+        thumbnail:
+          type: string
+          title: Thumbnail
+      type: object
+      required:
+      - id
+      title: ThumbnailSchema
+    HeadCountRequest:
+      properties:
+        image:
+          type: string
+          title: Image
+        confidence:
+          anyOf:
+          - type: integer
+            maximum: 99.0
+            minimum: 1.0
+          - type: 'null'
+          title: Confidence
+          default: 75
+      type: object
+      required:
+      - image
+      title: HeadCountRequest
+      example:
+        confidence: 75
+        image: base64_encoded_string
+    CollectionSchema:
+      properties:
+        id:
+          type: string
+          maxLength: 36
+          minLength: 36
+          title: Id
+        name:
+          type: string
+          maxLength: 50
+          minLength: 1
+          title: Name
+        description:
+          anyOf:
+          - type: string
+            maxLength: 100
+            minLength: 0
+          - type: 'null'
+          title: Description
+        count:
+          type: integer
+          title: Count
+        create_date:
+          type: string
+          format: date-time
+          title: Create Date
+        modified_date:
+          type: string
+          format: date-time
+          title: Modified Date
+      type: object
+      required:
+      - id
+      - name
+      - count
+      - create_date
+      - modified_date
+      title: CollectionSchema
     SearchLivePersonResultSchema:
       properties:
         liveness_score:
@@ -428,19 +535,51 @@ components:
       - liveness_score
       - persons
       title: SearchLivePersonResultSchema
-    OSEnum:
-      type: string
-      enum:
-      - DESKTOP
-      - ANDROID
-      - IOS
-      title: OSEnum
-    SearchModeEnum:
-      type: string
-      enum:
-      - ACCURATE
-      - FAST
-      title: SearchModeEnum
+    DetectionLandmarksSchema:
+      properties:
+        left_eye:
+          items:
+            type: integer
+          type: array
+          maxItems: 2
+          minItems: 2
+          title: Left Eye
+        right_eye:
+          items:
+            type: integer
+          type: array
+          maxItems: 2
+          minItems: 2
+          title: Right Eye
+        nose:
+          items:
+            type: integer
+          type: array
+          maxItems: 2
+          minItems: 2
+          title: Nose
+        left_mouth:
+          items:
+            type: integer
+          type: array
+          maxItems: 2
+          minItems: 2
+          title: Left Mouth
+        right_mouth:
+          items:
+            type: integer
+          type: array
+          maxItems: 2
+          minItems: 2
+          title: Right Mouth
+      type: object
+      required:
+      - left_eye
+      - right_eye
+      - nose
+      - left_mouth
+      - right_mouth
+      title: DetectionLandmarksSchema
     DetectionRequest:
       properties:
         image:
@@ -461,27 +600,6 @@ components:
           max_results: 10
           min_score: 0.81
           search_mode: FAST/ACCURATE choose one
-    DetectionBoxSchema:
-      properties:
-        left:
-          type: integer
-          title: Left
-        top:
-          type: integer
-          title: Top
-        right:
-          type: integer
-          title: Right
-        bottom:
-          type: integer
-          title: Bottom
-      type: object
-      required:
-      - left
-      - top
-      - right
-      - bottom
-      title: DetectionBoxSchema
     SearchLiveFaceScheme:
       properties:
         os:
@@ -532,127 +650,6 @@ components:
         min_score: 0.81
         os: DESKTOP
         search_mode: FAST/ACCURATE choose one
-    ThumbnailSchema:
-      properties:
-        id:
-          type: string
-          title: Id
-        thumbnail:
-          type: string
-          title: Thumbnail
-      type: object
-      required:
-      - id
-      title: ThumbnailSchema
-    CollectionSchema:
-      properties:
-        id:
-          type: string
-          maxLength: 36
-          minLength: 36
-          title: Id
-        name:
-          type: string
-          maxLength: 50
-          minLength: 1
-          title: Name
-        description:
-          anyOf:
-          - type: string
-            maxLength: 100
-            minLength: 0
-          - type: 'null'
-          title: Description
-        count:
-          type: integer
-          title: Count
-        create_date:
-          type: string
-          format: date-time
-          title: Create Date
-        modified_date:
-          type: string
-          format: date-time
-          title: Modified Date
-      type: object
-      required:
-      - id
-      - name
-      - count
-      - create_date
-      - modified_date
-      title: CollectionSchema
-    DetectionSchema:
-      properties:
-        box:
-          $ref: '#/components/schemas/DetectionBoxSchema'
-        landmarks:
-          $ref: '#/components/schemas/DetectionLandmarksSchema'
-        detection_score:
-          type: number
-          title: Detection Score
-        thumbnail:
-          type: string
-          title: Thumbnail
-        persons:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/SearchPersonResultSchema'
-            type: array
-          - type: 'null'
-          title: Persons
-      type: object
-      required:
-      - box
-      - landmarks
-      - detection_score
-      - thumbnail
-      title: DetectionSchema
-    DetectionLandmarksSchema:
-      properties:
-        left_eye:
-          items:
-            type: integer
-          type: array
-          maxItems: 2
-          minItems: 2
-          title: Left Eye
-        right_eye:
-          items:
-            type: integer
-          type: array
-          maxItems: 2
-          minItems: 2
-          title: Right Eye
-        nose:
-          items:
-            type: integer
-          type: array
-          maxItems: 2
-          minItems: 2
-          title: Nose
-        left_mouth:
-          items:
-            type: integer
-          type: array
-          maxItems: 2
-          minItems: 2
-          title: Left Mouth
-        right_mouth:
-          items:
-            type: integer
-          type: array
-          maxItems: 2
-          minItems: 2
-          title: Right Mouth
-      type: object
-      required:
-      - left_eye
-      - right_eye
-      - nose
-      - left_mouth
-      - right_mouth
-      title: DetectionLandmarksSchema
     HeadCountSchema:
       properties:
         count:
@@ -662,27 +659,30 @@ components:
       required:
       - count
       title: HeadCountSchema
-    ValidationError:
+    OSEnum:
+      type: string
+      enum:
+      - DESKTOP
+      - ANDROID
+      - IOS
+      title: OSEnum
+    HTTPValidationError:
       properties:
-        loc:
+        detail:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Detail
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: HTTPValidationError
+    VerifyPersonResultSchema:
+      properties:
+        match:
+          anyOf:
+          - $ref: '#/components/schemas/SearchPersonResultSchema'
+          - type: 'null'
+      type: object
+      title: VerifyPersonResultSchema
   securitySchemes:
     APIKeyHeader:
       type: apiKey

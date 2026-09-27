@@ -342,13 +342,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    DeletedItemSchema:
-      properties:
-        id:
-          type: string
-          title: Id
-      type: object
-      title: DeletedItemSchema
     ValidationError:
       properties:
         loc:
@@ -370,39 +363,6 @@ components:
       - msg
       - type
       title: ValidationError
-    CreateCollectionSchema:
-      properties:
-        name:
-          type: string
-          maxLength: 50
-          minLength: 1
-          title: Name
-        description:
-          anyOf:
-          - type: string
-            maxLength: 100
-            minLength: 0
-          - type: 'null'
-          title: Description
-      type: object
-      required:
-      - name
-      title: CreateCollectionSchema
-    OrderEnum:
-      type: string
-      enum:
-      - ASC
-      - DESC
-      title: OrderEnum
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ListCollectionSchema:
       properties:
         count:
@@ -418,6 +378,66 @@ components:
       - count
       - collections
       title: ListCollectionSchema
+    CollectionSchema:
+      properties:
+        id:
+          type: string
+          maxLength: 36
+          minLength: 36
+          title: Id
+        name:
+          type: string
+          maxLength: 50
+          minLength: 1
+          title: Name
+        description:
+          anyOf:
+          - type: string
+            maxLength: 100
+            minLength: 0
+          - type: 'null'
+          title: Description
+        count:
+          type: integer
+          title: Count
+        create_date:
+          type: string
+          format: date-time
+          title: Create Date
+        modified_date:
+          type: string
+          format: date-time
+          title: Modified Date
+      type: object
+      required:
+      - id
+      - name
+      - count
+      - create_date
+      - modified_date
+      title: CollectionSchema
+    DeletedItemSchema:
+      properties:
+        id:
+          type: string
+          title: Id
+      type: object
+      title: DeletedItemSchema
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    OrderEnum:
+      type: string
+      enum:
+      - ASC
+      - DESC
+      title: OrderEnum
     UpdateCollectionSchema:
       properties:
         id:
@@ -443,6 +463,24 @@ components:
       required:
       - id
       title: UpdateCollectionSchema
+    CreateCollectionSchema:
+      properties:
+        name:
+          type: string
+          maxLength: 50
+          minLength: 1
+          title: Name
+        description:
+          anyOf:
+          - type: string
+            maxLength: 100
+            minLength: 0
+          - type: 'null'
+          title: Description
+      type: object
+      required:
+      - name
+      title: CreateCollectionSchema
     LinksSchema:
       properties:
         collection_id:
@@ -485,44 +523,6 @@ components:
       - collection_id
       - person_id
       title: LinkSchema
-    CollectionSchema:
-      properties:
-        id:
-          type: string
-          maxLength: 36
-          minLength: 36
-          title: Id
-        name:
-          type: string
-          maxLength: 50
-          minLength: 1
-          title: Name
-        description:
-          anyOf:
-          - type: string
-            maxLength: 100
-            minLength: 0
-          - type: 'null'
-          title: Description
-        count:
-          type: integer
-          title: Count
-        create_date:
-          type: string
-          format: date-time
-          title: Create Date
-        modified_date:
-          type: string
-          format: date-time
-          title: Modified Date
-      type: object
-      required:
-      - id
-      - name
-      - count
-      - create_date
-      - modified_date
-      title: CollectionSchema
   securitySchemes:
     APIKeyHeader:
       type: apiKey
