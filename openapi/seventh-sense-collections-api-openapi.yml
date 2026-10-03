@@ -342,6 +342,34 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    OrderEnum:
+      type: string
+      enum:
+      - ASC
+      - DESC
+      title: OrderEnum
+    ListCollectionSchema:
+      properties:
+        count:
+          type: integer
+          title: Count
+        collections:
+          items:
+            $ref: '#/components/schemas/CollectionSchema'
+          type: array
+          title: Collections
+      type: object
+      required:
+      - count
+      - collections
+      title: ListCollectionSchema
+    DeletedItemSchema:
+      properties:
+        id:
+          type: string
+          title: Id
+      type: object
+      title: DeletedItemSchema
     ValidationError:
       properties:
         loc:
@@ -363,21 +391,48 @@ components:
       - msg
       - type
       title: ValidationError
-    ListCollectionSchema:
+    LinkSchema:
       properties:
-        count:
-          type: integer
-          title: Count
-        collections:
-          items:
-            $ref: '#/components/schemas/CollectionSchema'
-          type: array
-          title: Collections
+        collection_id:
+          type: string
+          maxLength: 36
+          minLength: 36
+          title: Collection Id
+        person_id:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Person Id
       type: object
       required:
-      - count
-      - collections
-      title: ListCollectionSchema
+      - collection_id
+      - person_id
+      title: LinkSchema
+    UpdateCollectionSchema:
+      properties:
+        id:
+          type: string
+          maxLength: 36
+          minLength: 36
+          title: Id
+        name:
+          anyOf:
+          - type: string
+            maxLength: 50
+            minLength: 1
+          - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+            maxLength: 100
+            minLength: 0
+          - type: 'null'
+          title: Description
+      type: object
+      required:
+      - id
+      title: UpdateCollectionSchema
     CollectionSchema:
       properties:
         id:
@@ -416,71 +471,6 @@ components:
       - create_date
       - modified_date
       title: CollectionSchema
-    DeletedItemSchema:
-      properties:
-        id:
-          type: string
-          title: Id
-      type: object
-      title: DeletedItemSchema
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    OrderEnum:
-      type: string
-      enum:
-      - ASC
-      - DESC
-      title: OrderEnum
-    UpdateCollectionSchema:
-      properties:
-        id:
-          type: string
-          maxLength: 36
-          minLength: 36
-          title: Id
-        name:
-          anyOf:
-          - type: string
-            maxLength: 50
-            minLength: 1
-          - type: 'null'
-          title: Name
-        description:
-          anyOf:
-          - type: string
-            maxLength: 100
-            minLength: 0
-          - type: 'null'
-          title: Description
-      type: object
-      required:
-      - id
-      title: UpdateCollectionSchema
-    CreateCollectionSchema:
-      properties:
-        name:
-          type: string
-          maxLength: 50
-          minLength: 1
-          title: Name
-        description:
-          anyOf:
-          - type: string
-            maxLength: 100
-            minLength: 0
-          - type: 'null'
-          title: Description
-      type: object
-      required:
-      - name
-      title: CreateCollectionSchema
     LinksSchema:
       properties:
         collection_id:
@@ -506,23 +496,33 @@ components:
       required:
       - collection_id
       title: LinksSchema
-    LinkSchema:
+    HTTPValidationError:
       properties:
-        collection_id:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CreateCollectionSchema:
+      properties:
+        name:
           type: string
-          maxLength: 36
-          minLength: 36
-          title: Collection Id
-        person_id:
-          type: string
-          maxLength: 100
+          maxLength: 50
           minLength: 1
-          title: Person Id
+          title: Name
+        description:
+          anyOf:
+          - type: string
+            maxLength: 100
+            minLength: 0
+          - type: 'null'
+          title: Description
       type: object
       required:
-      - collection_id
-      - person_id
-      title: LinkSchema
+      - name
+      title: CreateCollectionSchema
   securitySchemes:
     APIKeyHeader:
       type: apiKey
