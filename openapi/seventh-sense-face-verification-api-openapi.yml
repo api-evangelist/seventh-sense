@@ -63,6 +63,13 @@ paths:
       - APIKeyHeader: []
 components:
   schemas:
+    OSEnum:
+      type: string
+      enum:
+      - DESKTOP
+      - ANDROID
+      - IOS
+      title: OSEnum
     ValidationError:
       properties:
         loc:
@@ -84,82 +91,6 @@ components:
       - msg
       - type
       title: ValidationError
-    CompareSchema:
-      properties:
-        probe:
-          items:
-            type: string
-          type: array
-          maxItems: 3
-          minItems: 1
-          title: Probe
-        gallery:
-          items:
-            type: string
-          type: array
-          maxItems: 3
-          minItems: 1
-          title: Gallery
-        search_mode:
-          anyOf:
-          - $ref: '#/components/schemas/SearchModeEnum'
-          - type: 'null'
-          default: FAST
-      type: object
-      required:
-      - probe
-      - gallery
-      title: CompareSchema
-      example:
-        gallery:
-        - base64_encoded_string
-        probe:
-        - base64_encoded_string
-        search_mode: FAST/ACCURATE choose one, default FAST
-    ScoreLiveFaceSchema:
-      properties:
-        score:
-          type: number
-          title: Score
-        liveness_score:
-          type: string
-          title: Liveness Score
-      type: object
-      required:
-      - score
-      - liveness_score
-      title: ScoreLiveFaceSchema
-    OSEnum:
-      type: string
-      enum:
-      - DESKTOP
-      - ANDROID
-      - IOS
-      title: OSEnum
-    SearchModeEnum:
-      type: string
-      enum:
-      - ACCURATE
-      - FAST
-      title: SearchModeEnum
-    ScoreSchema:
-      properties:
-        score:
-          type: number
-          title: Score
-      type: object
-      required:
-      - score
-      title: ScoreSchema
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     CompareLiveFaceSchema:
       properties:
         probe:
@@ -203,6 +134,75 @@ components:
         os: DESKTOP
         probe: base64_encoded_string
         search_mode: FAST/ACCURATE choose one, default FAST
+    SearchModeEnum:
+      type: string
+      enum:
+      - ACCURATE
+      - FAST
+      title: SearchModeEnum
+    CompareSchema:
+      properties:
+        probe:
+          items:
+            type: string
+          type: array
+          maxItems: 3
+          minItems: 1
+          title: Probe
+        gallery:
+          items:
+            type: string
+          type: array
+          maxItems: 3
+          minItems: 1
+          title: Gallery
+        search_mode:
+          anyOf:
+          - $ref: '#/components/schemas/SearchModeEnum'
+          - type: 'null'
+          default: FAST
+      type: object
+      required:
+      - probe
+      - gallery
+      title: CompareSchema
+      example:
+        gallery:
+        - base64_encoded_string
+        probe:
+        - base64_encoded_string
+        search_mode: FAST/ACCURATE choose one, default FAST
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ScoreSchema:
+      properties:
+        score:
+          type: number
+          title: Score
+      type: object
+      required:
+      - score
+      title: ScoreSchema
+    ScoreLiveFaceSchema:
+      properties:
+        score:
+          type: number
+          title: Score
+        liveness_score:
+          type: string
+          title: Liveness Score
+      type: object
+      required:
+      - score
+      - liveness_score
+      title: ScoreLiveFaceSchema
   securitySchemes:
     APIKeyHeader:
       type: apiKey
