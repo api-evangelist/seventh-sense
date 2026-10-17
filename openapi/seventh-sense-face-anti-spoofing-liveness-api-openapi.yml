@@ -36,6 +36,23 @@ paths:
       - APIKeyHeader: []
 components:
   schemas:
+    LivenessSchema:
+      properties:
+        os:
+          anyOf:
+          - $ref: '#/components/schemas/OSEnum'
+          - type: 'null'
+          default: DESKTOP
+        image:
+          type: string
+          title: Image
+      type: object
+      required:
+      - image
+      title: LivenessSchema
+      example:
+        image: base64_encoded_string
+        os: DESKTOP
     OSEnum:
       type: string
       enum:
@@ -43,6 +60,15 @@ components:
       - ANDROID
       - IOS
       title: OSEnum
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -64,32 +90,6 @@ components:
       - msg
       - type
       title: ValidationError
-    LivenessSchema:
-      properties:
-        os:
-          anyOf:
-          - $ref: '#/components/schemas/OSEnum'
-          - type: 'null'
-          default: DESKTOP
-        image:
-          type: string
-          title: Image
-      type: object
-      required:
-      - image
-      title: LivenessSchema
-      example:
-        image: base64_encoded_string
-        os: DESKTOP
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     LivenessResultSchema:
       properties:
         liveness_score:

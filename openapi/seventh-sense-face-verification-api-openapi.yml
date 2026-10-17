@@ -63,34 +63,6 @@ paths:
       - APIKeyHeader: []
 components:
   schemas:
-    OSEnum:
-      type: string
-      enum:
-      - DESKTOP
-      - ANDROID
-      - IOS
-      title: OSEnum
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     CompareLiveFaceSchema:
       properties:
         probe:
@@ -140,6 +112,65 @@ components:
       - ACCURATE
       - FAST
       title: SearchModeEnum
+    ScoreLiveFaceSchema:
+      properties:
+        score:
+          type: number
+          title: Score
+        liveness_score:
+          type: string
+          title: Liveness Score
+      type: object
+      required:
+      - score
+      - liveness_score
+      title: ScoreLiveFaceSchema
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    OSEnum:
+      type: string
+      enum:
+      - DESKTOP
+      - ANDROID
+      - IOS
+      title: OSEnum
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ScoreSchema:
+      properties:
+        score:
+          type: number
+          title: Score
+      type: object
+      required:
+      - score
+      title: ScoreSchema
     CompareSchema:
       properties:
         probe:
@@ -172,37 +203,6 @@ components:
         probe:
         - base64_encoded_string
         search_mode: FAST/ACCURATE choose one, default FAST
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ScoreSchema:
-      properties:
-        score:
-          type: number
-          title: Score
-      type: object
-      required:
-      - score
-      title: ScoreSchema
-    ScoreLiveFaceSchema:
-      properties:
-        score:
-          type: number
-          title: Score
-        liveness_score:
-          type: string
-          title: Liveness Score
-      type: object
-      required:
-      - score
-      - liveness_score
-      title: ScoreLiveFaceSchema
   securitySchemes:
     APIKeyHeader:
       type: apiKey
